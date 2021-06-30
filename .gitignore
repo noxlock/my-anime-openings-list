@@ -1,2 +1,4 @@
 /MAOL/.env
 /MAOL/node_modules
+__pycache__/
+static/

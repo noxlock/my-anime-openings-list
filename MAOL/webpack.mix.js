@@ -7,5 +7,6 @@ mix.setPublicPath("static"); // Path where mix-manifest.json is created
 
 // Now you can use full mix api
 // Refer the file that was created in Step 2 to be compile
-mix.js(`home/resources/js/home.js`, `static/build`);
+mix.js(`home/resources/js/home.js`, `static/build`).vue()
 mix.sass(`home/resources//sass/home.scss`, `static/build`);
+
