@@ -1,13 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from home.models import Song
-
 class SongList(models.Model):
     """
     A user's list of songs
     """
-    songs = models.ManyToManyField(Song)
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class SongRating(models.Model):
@@ -27,6 +25,6 @@ class SongRating(models.Model):
         ('10', 'Masterpiece'),
     ]
 
-    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    song = models.ForeignKey('home.Song', on_delete=models.CASCADE)
     parent_list = models.ForeignKey(SongList, on_delete=models.CASCADE)
-    rating = models.CharField(max_length=2, choices=rating_choices)
+    rating = models.CharField(max_length=2, choices=rating_choices, default='5')

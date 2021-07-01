@@ -133,8 +133,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-SHELL_PLUS_IMPORTS = [
-    'import pp'
+SHELL_PLUS_POST_IMPORTS = [
+    ('djem', ('pp')),
 ]
 
 # Default primary key field type
