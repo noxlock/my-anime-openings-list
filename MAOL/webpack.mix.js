@@ -1,6 +1,5 @@
 let mix = require('laravel-mix');
 
-mix.js('vue/app.js', 'dist/').sass('vue/app.scss', 'dist/')
 
 mix.setResourceRoot("/static/build"); // setResroucesRoots add prefix to url() in scss on example: from /images/close.svg to /static/images/close.svg
 mix.setPublicPath("static"); // Path where mix-manifest.json is created

@@ -8,6 +8,9 @@ class SongList(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return owner.username + '\'s List'
+
 class SongRating(models.Model):
     """
     How a user has rated a song in their list
@@ -28,3 +31,6 @@ class SongRating(models.Model):
     song = models.ForeignKey('home.Song', on_delete=models.CASCADE)
     parent_list = models.ForeignKey(SongList, on_delete=models.CASCADE)
     rating = models.CharField(max_length=2, choices=rating_choices, default='5')
+
+    def __str__(self):
+        return rating

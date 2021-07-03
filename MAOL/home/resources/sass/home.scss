@@ -1,3 +1,31 @@
 html {
-    background-color: red;
+    padding-left: 1vw;
+    font-family: Verdana,Arial;
+    margin: auto;
+    display: table;
+
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#nav {
+    font-size: 100px;
+}
+
+#toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60vw;
+    height: 63px;
+}
+
+
+#profile-text {
+    color: #323232;
+    font-size: 14px;
+    float: left;
 }

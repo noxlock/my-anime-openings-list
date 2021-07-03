@@ -10,6 +10,9 @@ class Anime(models.Model):
     studio = models.TextField()
     mal_link = models.TextField(verbose_name='MyAnimeList Link', default='')
 
+    def __str__(self):
+        return name
+
 
 class Song(models.Model):
     """
