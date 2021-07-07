@@ -23,9 +23,53 @@ body {
     height: 63px;
 }
 
+#social-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 #profile-text {
     color: #323232;
     font-size: 14px;
     float: left;
+    padding-right: 8px;
+    font-weight: bold;
 }
+
+#profile-link {
+    font-size: 16px;
+    color: black;
+    font-family: inherit; /* Important for vertical align on mobile phones */
+    margin: 0; /* Important for vertical align on mobile phones */
+}
+
+.dropbtn {
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+  
+  /* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    flex-direction: column;
+}
+  
+  /* Links inside the dropdown */
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    text-align: left;
+}
+  
+  /* Show the dropdown menu on hover */
+  .show {display:flex;}

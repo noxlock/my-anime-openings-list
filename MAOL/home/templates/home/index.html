@@ -1,13 +1,14 @@
-{% extends 'home/base_layout.html' %}
+{% load static %}
 
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>Testing Vue...</h1>
+        <div id="app"></div>
 
-{% block main_content %}
-{%include '../toolbar.html' %}
-{% include '../nav.html' %}
-
-
-<!-- load the Vue component -->
-
-<demo-component></demo-component>
-
-{% endblock %}
+        <script type="text/javascript" src="{% static 'src/vue/dist/js/chunk-vendors.js' %}"></script>
+        <script type="text/javascript" src="{% static 'src/vue/dist/js/app.js' %}"></script>
+    </body>
+</html>
