@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
         <ToolBar></ToolBar>
-        /
+        Home
     </v-main>
   </v-app>
 </template>
@@ -11,7 +11,7 @@
 import ToolBar from '@/components/ToolBar.vue'
 
 export default {
-  name: 'App',
+  name: 'Home',
     components: {
         ToolBar
     },

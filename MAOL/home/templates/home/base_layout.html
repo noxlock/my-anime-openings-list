@@ -2,29 +2,8 @@
 <html>
 
 <head>
-    <script src="https://kit.fontawesome.com/d0a9161acf.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'build/home.css' %}?version=6">
+
     <script type="text/javascript" src="{% static 'build/toolbar.js' %}"></script>
-    <script>
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-      }
-      
-      // Close the dropdown menu if the user clicks outside of it
-      window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn') && !event.target.matches('.fa-caret-down') && !event.target.matches('#profile-text')) {
-            console.log(event.target.id)
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-              openDropdown.classList.remove('show');
-            }
-          }
-        }
-      }
-    </script>
 </head>
 
 <body>
