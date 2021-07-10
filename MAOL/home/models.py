@@ -11,7 +11,7 @@ class Anime(models.Model):
     mal_link = models.TextField(verbose_name='MyAnimeList Link', default='')
 
     def __str__(self):
-        return name
+        return self.name
 
 
 class Song(models.Model):

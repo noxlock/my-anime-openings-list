@@ -2,19 +2,23 @@
   <v-app>
     <v-main>
         <ToolBar></ToolBar>
-        Home
+        <Carousel></Carousel>
+        {{ msg }}
     </v-main>
   </v-app>
 </template>
 
 <script>
 import ToolBar from '@/components/ToolBar.vue'
+import Carousel from '@/components/Carousel.vue'
 
 export default {
   name: 'Home',
     components: {
-        ToolBar
+        ToolBar,
+        Carousel
     },
+    props: { msg: String },
 
   data: () => ({
     //

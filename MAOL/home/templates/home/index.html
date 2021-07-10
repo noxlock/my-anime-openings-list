@@ -1,7 +1,11 @@
 {% load render_bundle from webpack_loader %}
 
-<div id="app">
-  <app></app>
-</div>
+  <div id="hello_world" style="width: 49%; display: inline-block">
+    <test msg="{{ msg }}"></test>
+  </div>
+  <div id="hello_world_a" style="width: 49%; display: inline-block">
+    <tool-bar msg="{{ msg }}"></tool-bar>
+  </div>
+
 {% render_bundle 'chunk-vendors' %}
-{% render_bundle 'vue_app_01' %}
+{% render_bundle 'index' %}

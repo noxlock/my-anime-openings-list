@@ -21,7 +21,7 @@
                     <v-tabs-slider color="blue"></v-tabs-slider>
 
                     <v-tab>
-                        Home
+                        {{ msg }}
                     </v-tab>
 
                     <v-tab>
@@ -56,8 +56,10 @@
 </template>
 
 <script>
+
   export default {
     name: 'Toolbar',
+    props: {msg: String},
     data: () => ({
         searchClosed: true,
         query: null

@@ -2,8 +2,8 @@ const path = require('path');
 const BundleTracker = require("webpack-bundle-tracker");
 
 const pages = {
-    'vue_app_01': {
-        entry: './src/main.js',
+    'index': {
+        entry: './src/home.js',
         chunks: ['chunk-vendors']
     },
 }
@@ -15,7 +15,7 @@ module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
         ? ''
         : 'http://localhost:8080/',
-    outputDir: '../django_vue_mpa/static/vue/',
+    outputDir: '../static/vue/',
 
     chainWebpack: config => {
 
