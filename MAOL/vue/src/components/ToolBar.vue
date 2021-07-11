@@ -21,7 +21,7 @@
                         <v-tabs-slider color="blue"></v-tabs-slider>
 
                         <v-tab>
-                            {{ msg }}
+                            Home
                         </v-tab>
 
                         <v-tab>

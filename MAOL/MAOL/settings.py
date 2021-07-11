@@ -155,3 +155,6 @@ WEBPACK_LOADER = {
         'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
     }
 }
+
+# fix yt embeds
+SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"

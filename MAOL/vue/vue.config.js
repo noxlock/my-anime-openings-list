@@ -16,6 +16,7 @@ module.exports = {
         ? ''
         : 'http://localhost:8080/',
     outputDir: '../static/vue/',
+    runtimeCompiler: true,
 
     chainWebpack: config => {
 

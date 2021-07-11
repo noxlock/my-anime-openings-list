@@ -5,18 +5,17 @@
     max-width="800"
   >
     <v-slide-group
-      v-model="model"
       class="pa-4"
       center-active
       show-arrows
     >
       <v-slide-item
-        v-for="n in 15"
-        :key="n"
+        v-for="song in songs"
+        :key="song.pk"
         v-slot="{ active, toggle }"
       >
-        <v-card 
-          :color="active ? 'grey darken-3' : 'grey lighten-1'"
+        <v-card
+          :color="active ? 'grey darken-2' : 'grey lighten-1'"
           class="ma-4"
           height="200"
           width="100"
@@ -27,8 +26,9 @@
             align="center"
             justify="center"
           >
-            <v-scale-transition>
-            </v-scale-transition>
+            <v-card-title>
+                {{ song.fields.name }}
+            </v-card-title>
           </v-row>
         </v-card>
       </v-slide-item>
@@ -40,6 +40,11 @@
 
   export default {
     name: 'Carousel',
+    props: {
+        songs: {
+            type: Array
+        }
+    },
     data: () => ({
     })
   }

@@ -1,8 +1,7 @@
-import Vue from 'vue/dist/vue.js'
+import Vue from 'vue'
 import Vuex from "vuex";
 import storePlugin from "./vuex/vuex_store_as_plugin";
-// import Test from './components/Test.vue'
-import ToolBar from './components/ToolBar.vue'
+import Home from './home/Home.vue'
 import vuetify from './plugins/vuetify'
 
 Vue.use(Vuex);
@@ -11,6 +10,6 @@ Vue.config.productionTip = false;
 
 new Vue({
     vuetify,
-    el: "#hello_world_a",
-    components: {ToolBar}
+    el: "#app",
+    components: {Home}
   });
