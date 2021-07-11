@@ -1,0 +1,1 @@
+web: gunicorn MAOL/MAOL/wsgi.py --log-file -
