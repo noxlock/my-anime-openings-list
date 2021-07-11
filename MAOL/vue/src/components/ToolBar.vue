@@ -1,58 +1,58 @@
 <template>
-    <v-card>
-        <v-toolbar flat>
+        <v-card>
+            <v-toolbar flat>
 
-            <v-img src='@/assets/site-logo-trans.png' max-width='267' max-height='63'></v-img>
-
-            <v-spacer></v-spacer>
-
-            <div class="d-flex justify-space-between">
-                <div style='float: left;'>
-                    Username
-                </div>
+                <v-img src='@/assets/site-logo-trans.png' max-width='267' max-height='63'></v-img>
 
                 <v-spacer></v-spacer>
 
-                <v-icon style='float: right;'>mdi-account</v-icon>
-            </div>
+                <div class="d-flex justify-space-between">
+                    <div style='float: left;'>
+                        Username
+                    </div>
 
-            <template v-slot:extension>
-                <v-tabs class="d-flex justify-center">
-                    <v-tabs-slider color="blue"></v-tabs-slider>
+                    <v-spacer></v-spacer>
 
-                    <v-tab>
-                        {{ msg }}
-                    </v-tab>
+                    <v-icon style='float: right;'>mdi-account</v-icon>
+                </div>
 
-                    <v-tab>
-                        Anime
-                    </v-tab>
+                <template v-slot:extension>
+                    <v-tabs class="d-flex justify-center">
+                        <v-tabs-slider color="blue"></v-tabs-slider>
 
-                    <v-tab>
-                        Top
-                    </v-tab>
+                        <v-tab>
+                            {{ msg }}
+                        </v-tab>
 
-                    <v-tab>
-                        Random
-                    </v-tab>
+                        <v-tab>
+                            Anime
+                        </v-tab>
 
-                    <v-text-field
-                        @focus="searchClosed = false"
-                        @blur="searchClosed = true"
-                        v-model='query'
-                        placeholder="Search"
-                        filled
-                        dense
-                        prepend-inner-icon='mdi-magnify'
-                        class="search mt-1"
-                        :class="{ 'closed': searchClosed && !query }"
-                    ></v-text-field>
-                </v-tabs>
-                
-            </template>
+                        <v-tab>
+                            Top
+                        </v-tab>
 
-        </v-toolbar>
-    </v-card>
+                        <v-tab>
+                            Random
+                        </v-tab>
+
+                        <v-text-field
+                            @focus="searchClosed = false"
+                            @blur="searchClosed = true"
+                            v-model='query'
+                            placeholder="Search"
+                            filled
+                            dense
+                            prepend-inner-icon='mdi-magnify'
+                            class="search mt-1"
+                            :class="{ 'closed': searchClosed && !query }"
+                        ></v-text-field>
+                    </v-tabs>
+                    
+                </template>
+
+            </v-toolbar>
+        </v-card>
 </template>
 
 <script>
