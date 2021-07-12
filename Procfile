@@ -1,1 +1,1 @@
-web: gunicorn MAOL.MAOL.wsgi --log-file -
+web: cd MAOL/ && gunicorn MAOL.MAOL.wsgi --log-file -
