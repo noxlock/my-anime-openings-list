@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import ToolBar from '@/components/ToolBar.vue'
-import Carousel from '@/components/Carousel.vue'
+import ToolBar from '../components/ToolBar.vue'
+import Carousel from '../components/Carousel.vue'
 
 
 export default {
