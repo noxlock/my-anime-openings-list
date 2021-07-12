@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "cd MAOL/vue && npm i && vue-cli-service serve",
-    "build": "cd MAOL/vue && npm i && vue-cli-service build",
-    "lint": "cd MAOL/vue && npm i && vue-cli-service lint"
+    "serve": "cd MAOL/vue && npm i && npm serve",
+    "build": "cd MAOL/vue && npm i && npm build",
+    "lint": "cd MAOL/vue && npm i && npm lint"
   },
   "engines": {
     "node": "14.x"
