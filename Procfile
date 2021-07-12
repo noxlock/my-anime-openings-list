@@ -1,1 +1,1 @@
-web: gunicorn MAOL/MAOL/wsgi --log-file -
+web: gunicorn MAOL.MAOL.wsgi --log-file -
