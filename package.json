@@ -6,5 +6,8 @@
     "serve": "cd MAOL/vue && npm i && vue-cli-service serve",
     "build": "cd MAOL/vue && npm i && vue-cli-service build",
     "lint": "cd MAOL/vue && npm i && vue-cli-service lint"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

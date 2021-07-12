@@ -11,6 +11,10 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vuex-persistedstate": "*",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "vue-cli-plugin-vuetify": "^2.4.1",
     "webpack-bundle-tracker": "^0.4.3"
   },
   "devDependencies": {
@@ -40,6 +44,9 @@
       "parser": "babel-eslint"
     },
     "rules": {}
+  },
+  "engines": {
+    "node": "14.x"
   },
   "browserslist": [
     "> 1%",
