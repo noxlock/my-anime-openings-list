@@ -19,13 +19,13 @@
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",
     "vue": "^2.6.11",
+    "vue-cli": "^2.9.6",
     "vue-cli-plugin-vuetify": "^2.4.1",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0",
     "vuex-persistedstate": "*",
     "webpack-bundle-tracker": "^0.4.3"
   },
-  "devDependencies": {},
   "eslintConfig": {
     "root": true,
     "env": {
@@ -39,9 +39,6 @@
       "parser": "babel-eslint"
     },
     "rules": {}
-  },
-  "engines": {
-    "node": "14.x"
   },
   "browserslist": [
     "> 1%",
