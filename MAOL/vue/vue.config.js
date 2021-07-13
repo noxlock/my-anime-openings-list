@@ -46,9 +46,9 @@ module.exports = {
             .set('__STATIC__', 'static')
 
         config.devServer
-            .public('http://localhost:8080')
+            .public(`http://localhost:${process.env.PORT}`)
             .host('localhost')
-            .port(8080)
+            .port(process.env.PORT)
             .hotOnly(true)
             .watchOptions({poll: 1000})
             .https(false)
