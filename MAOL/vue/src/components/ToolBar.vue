@@ -2,7 +2,7 @@
         <v-card>
             <v-toolbar flat>
 
-                <v-img src='@/assets/site-logo-trans.png' max-width='267' max-height='63'></v-img>
+                <v-img src='./assets/site-logo-trans.png' max-width='267' max-height='63'></v-img>
 
                 <v-spacer></v-spacer>
 

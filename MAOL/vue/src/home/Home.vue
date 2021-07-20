@@ -1,13 +1,12 @@
 <template>
   <v-app>
     <v-main>
-        <h1> Test </h1>
         <ToolBar></ToolBar>
         <Carousel :songs=songs></Carousel> -->
 
         <ul id="example-1">
             <li v-for="song in songs" :key="song.pk">
-                <iframe width="560" height="315" :src=song.fields.youtube_link title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" :src=song.fields.embed_link title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </li>
         </ul>
     </v-main>

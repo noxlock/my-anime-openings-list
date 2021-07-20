@@ -1,4 +1,3 @@
 /MAOL/.env
 /MAOL/node_modules
 __pycache__/
-/MAOL/vue/webpack-stats.json

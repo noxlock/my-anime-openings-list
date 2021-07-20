@@ -18,7 +18,7 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True
+DEBUG = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -157,7 +157,7 @@ WEBPACK_LOADER = {
 }
 
 # fix yt embeds
-SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
+# SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
 
 if os.environ.get('DJANGO_DEVELOPMENT'):
     from MAOL.settings_dev import *
