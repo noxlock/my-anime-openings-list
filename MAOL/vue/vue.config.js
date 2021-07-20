@@ -14,7 +14,7 @@ module.exports = {
     productionSourceMap: false,
     publicPath: process.env.NODE_ENV === 'production'
         ? ''
-        : `http://0.0.0.0:${process.env.PORT}/`,
+        : `http://localhost:${process.env.PORT}/`,
     outputDir: '../static/vue/',
     runtimeCompiler: true,
 
@@ -46,13 +46,12 @@ module.exports = {
             .set('__STATIC__', 'static')
 
         config.devServer
-            .public(`http://0.0.0.0:${process.env.PORT}`)
-            .host('0.0.0.0')
+            .public(`http://localhost:${process.env.PORT}`)
+            .host('localhost')
             .port(process.env.PORT)
             .hotOnly(true)
             .watchOptions({poll: 1000})
             .https(false)
             .headers({"Access-Control-Allow-Origin": ["*"]})
-
-    }
+    },
 };

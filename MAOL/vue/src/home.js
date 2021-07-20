@@ -2,7 +2,7 @@ import Vue from 'vue'
 // import Vuex from "vuex";
 // import storePlugin from "./vuex/vuex_store_as_plugin";
 import Home from './home/Home.vue'
-import vuetify from './plugins/vuetify'
+import vuetify from './plugins/vuetify.js'
 
 // Vue.use(Vuex);
 // Vue.use(storePlugin);

@@ -5,25 +5,12 @@
   "scripts": {
     "serve": "./node_modules/.bin/vue-cli-service serve",
     "build": "./node_modules/.bin/vue-cli-service build",
-    "lint": "./node_modules/.bin/vue-cli-service lint",
-    "postinstall": "npm i -g @vue/cli && vue add vuetify"
+    "lint": "./node_modules/.bin/vue-cli-service lint"
   },
   "dependencies": {
-    "@mdi/font": "^5.9.55",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "core-js": "^3.6.5",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "sass": "~1.32.0",
-    "sass-loader": "^10.0.0",
     "vue": "^2.6.11",
     "vue-cli": "^2.9.6",
-    "vue-cli-plugin-vuetify": "^2.4.1",
-    "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0",
+    "vuetify": "^2.5.6",
     "vuex-persistedstate": "*",
     "webpack-bundle-tracker": "^0.4.3"
   },
@@ -45,5 +32,20 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "devDependencies": {
+    "@mdi/font": "^5.9.55",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.5",
+    "deepmerge": "^1.5.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "sass": "~1.32",
+    "sass-loader": "^10.2.0",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.7.0"
+  }
 }
