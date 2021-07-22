@@ -1,17 +1,19 @@
 from django.db import models
 
-from personal_list.models import SongList, SongRating
+from personal_list.models import SongRating
+
 
 class Anime(models.Model):
     """
     An anime series
     """
-    name = models.TextField()
+    japanese_name = models.TextField()
+    english_name = models.TextField()
     studio = models.TextField()
-    mal_link = models.TextField(verbose_name='MyAnimeList Link', default='')
+    anilist_link = models.TextField(default='')
 
     def __str__(self):
-        return self.name
+        return self.english_name
 
 
 class Song(models.Model):
@@ -25,10 +27,9 @@ class Song(models.Model):
     ]
 
     song_type = models.CharField(max_length=3, choices=song_type_choices)
-    name = models.TextField()
-    artist = models.TextField()
+    name = models.TextField(default='')
+    artist = models.TextField(default='')
     video_link = models.TextField(default='')
-    embed_link = models.TextField(default='')
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
     # E.G OP 1
     number = models.TextField()
@@ -40,17 +41,7 @@ class Song(models.Model):
         e.g Demon Slayer OP 1
         """
 
-        return self.anime.name + ' ' + self.song_type + self.number
-    
-    def save(self, *args, **kwargs):
-        """
-        Make it so we only need to get the youtube video link,
-        which is much easier.
-        """
-        if not self.embed_link:
-            self.embed_link = self.get_embed_link()
-        
-        super().save(*args, **kwargs)
+        return self.anime.english_name + ' ' + self.song_type + self.number
 
     def get_song_name(self):
         """
@@ -58,7 +49,7 @@ class Song(models.Model):
         e.g Lisa - Gurenge
         """
         return self.artist + ' ' + self.name
-    
+
     def get_embed_link(self):
         """
         Get an embed friendly link for the song
@@ -66,4 +57,3 @@ class Song(models.Model):
         """
 
         return self.video_link.replace('watch?v=', 'embed/')
-

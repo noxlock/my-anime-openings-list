@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'webpack_loader',
     'home',
-    'personal_list'
+    'personal_list',
+    'utils'
 ]
 
 MIDDLEWARE = [
