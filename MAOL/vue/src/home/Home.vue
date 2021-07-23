@@ -1,28 +1,28 @@
 <template>
-  <v-app>
-    <v-main>
-        <ToolBar></ToolBar>
-        <Carousel :songs=songs></Carousel> -->
+    <v-app>
+        <v-main>
+            <ToolBar></ToolBar>
+            <HomeBanner></HomeBanner>
 
-        <ul id="example-1">
-            <li v-for="song in songs" :key="song.pk">
-                <iframe width="560" height="315" :src=song.fields.embed_link title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </li>
-        </ul>
-    </v-main>
-  </v-app>
+            <v-card style="text-align: center;" class="text-h4">Top Songs</v-card>
+
+            <Carousel :songs="songs"></Carousel>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
 import ToolBar from '../components/ToolBar.vue'
 import Carousel from '../components/Carousel.vue'
+import HomeBanner from '../components/HomeBanner.vue'
 
 
 export default {
   name: 'Home',
     components: {
         ToolBar,
-        Carousel
+        Carousel,
+        HomeBanner
     },
     props: {
         songs: {
@@ -31,7 +31,6 @@ export default {
      },
 
   data: () => ({
-    //
   }),
 };
 </script>

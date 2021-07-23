@@ -10,7 +10,9 @@ class Anime(models.Model):
     japanese_name = models.TextField()
     english_name = models.TextField()
     studio = models.TextField()
-    anilist_link = models.TextField(default='')
+    anilist_link = models.TextField()
+    # cover photo
+    cover = models.TextField(default='')
 
     def __str__(self):
         return self.english_name

@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'home',
     'personal_list',
-    'utils'
+    'utils',
+    'authentication'
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 VUE_FRONTEND_DIR = os.path.join(BASE_DIR, 'vue')
 
+if os.environ.get('DJANGO_DEVELOPMENT'):
+    from MAOL.settings_dev import *
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
@@ -159,6 +163,3 @@ WEBPACK_LOADER = {
 
 # fix yt embeds
 # SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"
-
-if os.environ.get('DJANGO_DEVELOPMENT'):
-    from MAOL.settings_dev import *

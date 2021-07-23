@@ -26,7 +26,10 @@ def get_anime(pages=1):
                         name
                     }
                 }
-            siteUrl
+                siteUrl
+                coverImage {
+                    large
+                }
             }
         }
     }
@@ -53,17 +56,19 @@ def get_anime(pages=1):
                 # API results can have a null english name
                 english_name=english_name if english_name else japanese_name,
                 studio=media['studios']['nodes'][0]['name'],
-                anilist_link=media['siteUrl']
+                anilist_link=media['siteUrl'],
+                cover=media['coverImage']['large']
             )
 
 
 def get_song(anime):
 
-    # for some reason, their API blocks the `requests` user agent
+    # for some reason, their API blocks the `requests` user agent,
+    # so set a random one
     headers = {
         'user-agent': "MAOL"
     }
-    url = f'https://staging.animethemes.moe/api/anime/{anime}?include=themes.entries.videos'
+    url = 'https://staging.animethemes.moe/api/anime/{0}?include=themes.entries.videos'
 
     # format anime name to animethemes `slug`
     name = re.sub(r'\W+', ' ', anime.japanese_name)
