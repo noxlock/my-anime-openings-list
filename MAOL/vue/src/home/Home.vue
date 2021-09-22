@@ -12,23 +12,22 @@
 </template>
 
 <script>
-import ToolBar from '../components/ToolBar.vue'
-import Carousel from '../components/Carousel.vue'
-import HomeBanner from '../components/HomeBanner.vue'
-
+import ToolBar from '../components/ToolBar.vue';
+import Carousel from '../components/Carousel.vue';
+import HomeBanner from '../components/HomeBanner.vue';
 
 export default {
   name: 'Home',
-    components: {
-        ToolBar,
-        Carousel,
-        HomeBanner
+  components: {
+    ToolBar,
+    Carousel,
+    HomeBanner,
+  },
+  props: {
+    songs: {
+      type: Array,
     },
-    props: {
-        songs: {
-            type: Array
-        }
-     },
+  },
 
   data: () => ({
   }),

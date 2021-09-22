@@ -8,17 +8,17 @@
 </template>
 
 <script>
-    export default {
-        name: 'HelloWorld',
-        props: { msg: String },
-        computed: {
-            count() { return this.$store.state.counter.count }
-        },
-        methods: {
-            increment() { this.$store.commit('increment') },
-            decrement() { this.$store.commit('decrement') }
-        },
-    }
+export default {
+  name: 'HelloWorld',
+  props: { msg: String },
+  computed: {
+    count() { return this.$store.state.counter.count; },
+  },
+  methods: {
+    increment() { this.$store.commit('increment'); },
+    decrement() { this.$store.commit('decrement'); },
+  },
+};
 </script>
 
 <style scoped>

@@ -54,15 +54,15 @@
 </template>
 <script>
 
-  export default {
-    name: 'Carousel',
-    props: {
-        songs: {
-            type: Array
-        }
+export default {
+  name: 'Carousel',
+  props: {
+    songs: {
+      type: Array,
     },
-    data: () => ({
-        selected: null
-    })
-  }
+  },
+  data: () => ({
+    selected: null,
+  }),
+};
 </script>

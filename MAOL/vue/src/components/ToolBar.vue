@@ -48,7 +48,7 @@
                             :class="{ 'closed': searchClosed && !query }"
                         ></v-text-field>
                     </v-tabs>
-                    
+
                 </template>
 
             </v-toolbar>
@@ -57,14 +57,14 @@
 
 <script>
 
-  export default {
-    name: 'Toolbar',
-    props: {msg: String},
-    data: () => ({
-        searchClosed: true,
-        query: null
-    })
-  }
+export default {
+  name: 'Toolbar',
+  props: { msg: String },
+  data: () => ({
+    searchClosed: true,
+    query: null,
+  }),
+};
 </script>
 
 <style lang='sass'>

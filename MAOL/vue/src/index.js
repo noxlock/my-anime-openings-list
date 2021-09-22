@@ -1,15 +1,15 @@
-import Vue from 'vue'
+import Vue from 'vue';
 // import Vuex from "vuex";
 // import storePlugin from "./vuex/vuex_store_as_plugin";
-import Home from './home/Home.vue'
-import vuetify from './plugins/vuetify.js'
+import Home from './home/Home.vue';
+import vuetify from './plugins/vuetify.js';
 
 // Vue.use(Vuex);
 // Vue.use(storePlugin);
 Vue.config.productionTip = false;
 
 new Vue({
-    vuetify,
-    el: "#app",
-    components: {Home}
-  });
+  vuetify,
+  el: '#app',
+  components: { Home },
+});

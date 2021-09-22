@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "./node_modules/.bin/vue-cli-service serve",
     "build": "./node_modules/.bin/vue-cli-service build",
-    "lint": "./node_modules/.bin/vue-cli-service lint"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "js-cookie": "^2.2.1",
@@ -15,6 +15,23 @@
     "vuex-persistedstate": "*",
     "webpack-bundle-tracker": "^0.4.3"
   },
+  "devDependencies": {
+    "@mdi/font": "^5.9.55",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.5",
+    "deepmerge": "^1.5.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "sass": "~1.32",
+    "sass-loader": "^10.2.0",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.7.0"
+  },
   "eslintConfig": {
     "root": true,
     "env": {
@@ -22,7 +39,8 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/airbnb"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
@@ -33,20 +51,5 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ],
-  "devDependencies": {
-    "@mdi/font": "^5.9.55",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "core-js": "^3.6.5",
-    "deepmerge": "^1.5.2",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "sass": "~1.32",
-    "sass-loader": "^10.2.0",
-    "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
-  }
+  ]
 }

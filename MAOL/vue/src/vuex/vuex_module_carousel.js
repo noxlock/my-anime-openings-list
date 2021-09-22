@@ -1,5 +1,5 @@
 export default {
-    state: {
-        msg: ''
-    },
-}
+  state: {
+    msg: '',
+  },
+};
