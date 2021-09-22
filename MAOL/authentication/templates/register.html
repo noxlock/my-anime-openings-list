@@ -1,7 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            background: radial-gradient(#96c7d4, #86d1e6 );
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login {
+            position: relative;
+            padding: 20px 20px 20px;
+            width: 28em;
+            height: 31em;
+            background: white;
+            border-radius: 3px;
+            box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
 
 
-<form method="POST" action=''>
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" name="Create user">
-</form>
+        .login h1 {
+            margin: -20px -20px 21px;
+            line-height: 40px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #555;
+            text-align: center;
+            text-shadow: 0 1px white;
+            background: #f3f3f3;
+            border-bottom: 1px solid #cfcfcf;
+            border-radius: 3px 3px 0 0;
+            box-shadow: 0 1px whitesmoke;
+        }
+
+        .login-help {
+            margin: 20px 0;
+            font-size: 16px;
+            color: black;
+            text-align: center;
+        }
+
+        .login-help a {
+            color: #86d1e6;
+            text-decoration: none;
+        }
+
+        .login-help a:hover {
+            text-decoration: underline;
+        }
+
+        input {
+            margin-bottom: 30px;
+            width: 100%;
+            height: 40px;
+        }
+
+
+    </style>
+    <title>Register</title>
+
+    
+</head>
+
+<body>
+    
+    <div class="login">
+        <h1>Register</h1>
+        <form method="POST" action="">
+                {%csrf_token %}
+
+                {{ form.email }}
+                {{ form.email.errors }}
+
+                {{ form.username }}
+                {{ form.username.errors }}
+
+
+                {{ form.password1 }}
+                {{ form.password1.errors}}
+
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+
+
+                <input type="submit" value="Register">
+
+            </form>
+            <div class="login-help">
+                <p>Already have an account? <a href="#">Login Here</a>.</p>
+            </div>
+    </div>
+   
+    
+    
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>
