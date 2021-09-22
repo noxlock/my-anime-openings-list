@@ -13,19 +13,3 @@ def register(request):
 
     context = {'form': form}
     return render(request, 'register.html', context)
-
-
-# def login(request):
-    
-
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request, user)
-#     else:
-#         form = LoginForm()
-
-#     context = {'form': form}
-
-#     return render(request, 'login.html', context)
