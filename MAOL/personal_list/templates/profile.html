@@ -7,8 +7,8 @@
 </head>
 
 <body>
-    <v-app id='app'>
-            <Home :songs="{{ songs }}" username="{{user}}" ></Home>
+    <v-app id='profile'>
+            <Profile user="{{user}}" ></Profile>
     </v-app>
     
 </body>
@@ -16,4 +16,4 @@
 
 
 {% render_bundle 'chunk-vendors' %}
-{% render_bundle 'index' %}
+{% render_bundle 'profile' %}

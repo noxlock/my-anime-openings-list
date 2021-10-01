@@ -1,3 +1,4 @@
 webpack.config.js
 src/vuex/*
 src/index.js
+src/profile.js

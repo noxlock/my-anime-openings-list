@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm
 
 
 def register(request):

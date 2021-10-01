@@ -78,6 +78,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MAOL.wsgi.application'
 
+# Vue directory
+VUE_FRONTEND_DIR = os.path.join(BASE_DIR, 'vue')
+
+# Webpack settings
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'vue/',  # must end with slash
+        'STATS_FILE': os.path.join(VUE_FRONTEND_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
+    }
+}
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/auth/login'
+LOGOUT_REDIRECT_URL='/auth/login'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -145,21 +164,6 @@ SHELL_PLUS_POST_IMPORTS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-VUE_FRONTEND_DIR = os.path.join(BASE_DIR, 'vue')
-
+# If running a dev environment
 if os.environ.get('DJANGO_DEVELOPMENT'):
     from MAOL.settings_dev import *
-
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'vue/',  # must end with slash
-        'STATS_FILE': os.path.join(VUE_FRONTEND_DIR, 'webpack-stats.json'),
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
-    }
-}
-
-# fix yt embeds
-# SECURE_REFERRER_POLICY = "no-referrer-when-downgrade"

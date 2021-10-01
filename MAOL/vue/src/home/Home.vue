@@ -1,7 +1,8 @@
 <template>
     <v-app>
         <v-main>
-            <ToolBar></ToolBar>
+            <ToolBar :username="username"></ToolBar>
+            <HomeAppBar></HomeAppBar>
             <HomeBanner></HomeBanner>
 
             <v-card style="text-align: center;" class="text-h4">Top Songs</v-card>
@@ -13,19 +14,24 @@
 
 <script>
 import ToolBar from '../components/ToolBar.vue';
-import Carousel from '../components/Carousel.vue';
+import HomeAppBar from '../components/HomeAppBar.vue';
 import HomeBanner from '../components/HomeBanner.vue';
+import Carousel from '../components/Carousel.vue';
 
 export default {
   name: 'Home',
   components: {
     ToolBar,
-    Carousel,
+    HomeAppBar,
     HomeBanner,
+    Carousel,
   },
   props: {
     songs: {
       type: Array,
+    },
+    username: {
+      type: String,
     },
   },
 
