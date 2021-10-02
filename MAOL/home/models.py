@@ -6,8 +6,8 @@ class DateData(models.Model):
     Adds a date_created and last_modified date
     """
 
-    date_created = models.DateTimeField(default=timezone.now())
-    last_modified = models.DateTimeField(default=timezone.now())
+    date_created = models.DateTimeField(default=timezone.now)
+    last_modified = models.DateTimeField(default=timezone.now)
 
     class Meta:
         abstract = True
