@@ -1,9 +1,34 @@
 from django.db import models
+from django.utils import timezone
 
-from personal_list.models import SongRating
+class DateData(models.Model):
+    """
+    Adds a date_created and last_modified date
+    """
+
+    date_created = models.DateTimeField(default=timezone.now())
+    last_modified = models.DateTimeField(default=timezone.now())
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        last_modified = timezone.now()
+        super().save(*args, **kwargs)
 
 
-class Anime(models.Model):
+
+class ModelAbstract(DateData):
+    """
+    A generic class for models to inherit from,
+    adds some nifty universal stuff
+    """
+
+    class Meta:
+        abstract = True
+
+
+class Anime(ModelAbstract):
     """
     An anime series
     """
@@ -18,7 +43,7 @@ class Anime(models.Model):
         return self.english_name
 
 
-class Song(models.Model):
+class Song(ModelAbstract):
     """
     An anime track, can be OP, ED, OST.
     """
@@ -35,7 +60,7 @@ class Song(models.Model):
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
     # E.G OP 1
     number = models.TextField()
-    belongs_to_lists = models.ManyToManyField('personal_list.SongList', through=SongRating)
+    belongs_to_lists = models.ManyToManyField('personal_list.SongList', through="personal_list.SongRating")
 
     def __str__(self):
         """
@@ -51,11 +76,3 @@ class Song(models.Model):
         e.g Lisa - Gurenge
         """
         return self.artist + ' ' + self.name
-
-    def get_embed_link(self):
-        """
-        Get an embed friendly link for the song
-        (normal '/watch?' doesn't work)
-        """
-
-        return self.video_link.replace('watch?v=', 'embed/')

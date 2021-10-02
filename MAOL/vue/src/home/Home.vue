@@ -5,7 +5,7 @@
             <HomeAppBar></HomeAppBar>
             <HomeBanner></HomeBanner>
 
-            <v-card style="text-align: center;" class="text-h4">Top Songs</v-card>
+            <v-card outlined class="text-h4">Top Songs</v-card>
 
             <Carousel :songs="songs"></Carousel>
         </v-main>
@@ -39,3 +39,9 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+.v-card {
+    text-align: center;
+}
+</style>

@@ -155,6 +155,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/media/'
+
 SHELL_PLUS_POST_IMPORTS = [
     ('djem', ('pp')),
 ]
