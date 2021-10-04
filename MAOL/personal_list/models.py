@@ -2,11 +2,12 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator
 
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
-from home.models import ModelAbstract
+from home.models import ModelAbstract, Song
 
 
 class Profile(ModelAbstract):
@@ -28,25 +29,48 @@ class Profile(ModelAbstract):
     )
     banner = ProcessedImageField(
         upload_to='banners', default='banners/placeholder.png',
-        processors=[ResizeToFill(256, 256)],
+        processors=[ResizeToFill(1300, 400)],
         format="PNG"
     )
 
-    def get_recent_ratings(self):
-        pass
+    # def get_recent_ratings(self, limit=20):
+    #     """
+    #     Get the user's recently rated songs.
 
-    def get_top_ratings(self):
-        pass
+    #     @limit: How many songs to get
+    #     """
+
+    #     ratings = self.user.songlist.songrating_set.all()
+    #     songs = Song.objects.filter(songrating__in=ratings).values('video_link', 'anime__cover', 'pk').order_by(
+    #         '-songrating__last_modified')[:limit]
+
+    #     return songs
+
+    def get_top_ratings(self, limit=20):
+        """
+        Get the user's recently rated songs.
+
+        @limit: How many songs to get
+        """
+
+        # Grab all the user's ratings
+        ratings = self.user.songlist.songrating_set.all()
+
+        # Filter through the highest rated, and then most recently rated songs rated by the user.
+        songs = Song.objects.filter(songrating__in=ratings).values('video_link', 'anime__cover', 'pk').order_by(
+            '-songrating__rating', 'songrating__last_modified')[:limit]
+
+        return songs
 
     def __str__(self):
         return self.user.username + '\'s Profile'
 
 # On User creation, make a profile as well
-def create_user_profile(sender, instance, created, **kwargs):
+def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-post_save.connect(create_user_profile, sender=User)
+post_save.connect(create_profile, sender=User)
 
 
 class SongList(ModelAbstract):
@@ -54,31 +78,26 @@ class SongList(ModelAbstract):
     A user's list of songs
     """
 
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.owner.username + '\'s List'
+        return self.user.username + '\'s List'
+
+# On User creation, make a SongList as well
+def create_songlist(sender, instance, created, **kwargs):
+    if created:
+        SongList.objects.create(user=instance)
+
+    post_save.connect(create_songlist, sender=User)
 
 class SongRating(ModelAbstract):
     """
     How a user has rated a song in their list
     """
-    rating_choices = [
-        ('1', 'Appalling'),
-        ('2', 'Horrible'),
-        ('3', 'Very Bad'),
-        ('4', 'Bad'),
-        ('5', 'Average'),
-        ('6', 'Fine'),
-        ('7', 'Good'),
-        ('8', 'Very Good'),
-        ('9', 'Great'),
-        ('10', 'Masterpiece'),
-    ]
 
     song = models.ForeignKey('home.Song', on_delete=models.CASCADE)
     parent_list = models.ForeignKey(SongList, on_delete=models.CASCADE)
-    rating = models.CharField(max_length=2, choices=rating_choices, null=True, blank=True)
+    rating = models.PositiveIntegerField(null=True, blank=True, validators=[MaxValueValidator(10)])
 
     def __str__(self):
-        return self.rating
+        return str(self.rating) + ' ' + str(self.song) 

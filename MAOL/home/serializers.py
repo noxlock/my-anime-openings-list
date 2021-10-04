@@ -1,3 +1,10 @@
-from rest_framework import serializers
+import json
 
-from home.models import Anime, Song
+def song_serializer(qs):
+    """
+    Doesn't do a whole lot, just keeps code readable.
+
+    @qs: A queryset of songs
+    """
+
+    return json.dumps(list(qs))

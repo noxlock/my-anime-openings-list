@@ -1,15 +1,13 @@
 <template>
-    <v-app>
         <v-main>
             <ToolBar :username="username"></ToolBar>
             <HomeAppBar></HomeAppBar>
             <HomeBanner></HomeBanner>
 
             <v-card outlined class="text-h4">Top Songs</v-card>
-
+            <!-- <p>{{songs[0]}}</p> -->
             <Carousel :songs="songs"></Carousel>
         </v-main>
-    </v-app>
 </template>
 
 <script>

@@ -8,8 +8,7 @@
 
 <body>
     <v-app id='profile'>
-            <div><p>Bruh {{user.profile.avatar}}</p></div>
-            <Profile user="{{user}}" ></Profile>
+            <Profile :profile="{{profile}}" username="{{user}}" :top="{{topRated}}" ></Profile>
     </v-app>
     
 </body>
