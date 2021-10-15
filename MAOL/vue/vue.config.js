@@ -9,6 +9,10 @@ const pages = {
     entry: './src/profile.js',
     chunks: ['chunk-vendors'],
   },
+  list: {
+    entry: './src/list.js',
+    chunks: ['chunk-vendors'],
+  },
 };
 
 module.exports = {

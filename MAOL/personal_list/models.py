@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 
@@ -15,7 +14,7 @@ class Profile(ModelAbstract):
     A user's profile. Data like profile picture/banner is stored here,
     but also anything else that should probably be extending the
     default User model.
-    
+
     It takes hard work to set a custom User model once you've already
     started a project, and most of the things I want would
     fit nicely in a model like this anyways.
@@ -50,7 +49,9 @@ class Profile(ModelAbstract):
         """
         Get the user's recently rated songs.
 
-        @limit: How many songs to get
+        Gets very little details, mainly just used for carousels.
+
+        @limit: How many songs to get (default 20)
         """
 
         # Grab all the user's ratings
@@ -62,13 +63,32 @@ class Profile(ModelAbstract):
 
         return songs
 
+    def get_rated_songs(self, limit=None):
+        """
+        Grab all songs that a User has rated.
+        Used for the user's list.
+
+        @limit: How many songs to get
+        """
+
+        # Grab all the user's SongRatings, along with details about the song.
+        ratings = SongRating.objects.filter(parent_list=self.user.songlist).values(
+            'song__anime__cover', 'song__anime__english_name',
+            'song__song_type', 'song__number', 'rating', 'song__video_link', 'song__pk').order_by(
+                'last_modified'
+            )
+
+        return ratings
+
     def __str__(self):
         return self.user.username + '\'s Profile'
+
 
 # On User creation, make a profile as well
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
 
 post_save.connect(create_profile, sender=User)
 
@@ -83,12 +103,15 @@ class SongList(ModelAbstract):
     def __str__(self):
         return self.user.username + '\'s List'
 
-# On User creation, make a SongList as well
+
+# On User creation, make a profile as well
 def create_songlist(sender, instance, created, **kwargs):
     if created:
         SongList.objects.create(user=instance)
 
-    post_save.connect(create_songlist, sender=User)
+
+post_save.connect(create_songlist, sender=User)
+
 
 class SongRating(ModelAbstract):
     """
@@ -99,5 +122,11 @@ class SongRating(ModelAbstract):
     parent_list = models.ForeignKey(SongList, on_delete=models.CASCADE)
     rating = models.PositiveIntegerField(null=True, blank=True, validators=[MaxValueValidator(10)])
 
+    class Meta:
+        # You should only be able to have one rating per song.
+        constraints = [
+            models.UniqueConstraint(fields=['parent_list', 'song'], name='one_rating_only')
+        ]
+
     def __str__(self):
-        return str(self.rating) + ' ' + str(self.song) 
+        return str(self.rating) + ' ' + str(self.song)

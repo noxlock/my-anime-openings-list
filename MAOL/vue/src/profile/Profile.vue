@@ -1,16 +1,10 @@
 <template>
     <v-main>
-        <ToolBar :username="username"></ToolBar>
+        <ToolBar :user="username"></ToolBar>
+
         <!-- Banner and profile picture -->
-        <v-card outlined align="center">
-            <v-parallax
-                height="300"
-                dark
-                :src="'/media/' + profile[0].fields.banner"
-            >
-                <img :src="'/media/' + profile[0].fields.avatar" width="256">
-            </v-parallax>
-        </v-card>
+        <ProfileBanner :profile="profile"></ProfileBanner>
+
         <v-card outlined class="text-h3"> {{username}}'s Top Songs </v-card>
 
         <!-- <Carousel :songs="recent"></Carousel> -->
@@ -20,12 +14,14 @@
 
 <script>
 import ToolBar from '../components/ToolBar.vue';
+import ProfileBanner from '../components/ProfileBanner.vue';
 import Carousel from '../components/Carousel.vue';
 
 export default {
   name: 'Profile',
   components: {
     ToolBar,
+    ProfileBanner,
     Carousel,
   },
   props: {
@@ -35,9 +31,9 @@ export default {
     username: {
       type: String,
     },
-    recent: {
-      type: Array,
-    },
+    // recent: {
+    //   type: Array,
+    // },
     top: {
       type: Array,
     },
@@ -48,10 +44,6 @@ export default {
 </script>
 
 <style scoped>
-#banner {
-    width: 100%;
-    min-height: 35%;
-}
 
 .v-card {
     text-align: center;

@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <style>
         html {
             height: 100%;
@@ -73,7 +72,10 @@
     
 </head>
 
+
 <body>
+    {% include 'nav.html' %}
+    
     
     <div class="login">
         <h1>Login</h1>
@@ -86,7 +88,6 @@
                 {{ form.password }}
                 {{ form.password.errors}}
 
-                {{ user.username }}
 
                 <input type="submit" value="Login">
                 <input type="hidden" name="next" value="../../profile">

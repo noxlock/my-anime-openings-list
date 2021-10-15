@@ -1,6 +1,6 @@
 <template>
         <v-main>
-            <ToolBar :username="username"></ToolBar>
+            <ToolBar :user="username"></ToolBar>
             <HomeAppBar></HomeAppBar>
             <HomeBanner></HomeBanner>
 

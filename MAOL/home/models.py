@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 class DateData(models.Model):
     """
     Adds a date_created and last_modified date
@@ -13,9 +14,8 @@ class DateData(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        last_modified = timezone.now()
+        self.last_modified = timezone.now()
         super().save(*args, **kwargs)
-
 
 
 class ModelAbstract(DateData):
@@ -60,7 +60,11 @@ class Song(ModelAbstract):
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
     # E.G OP 1
     number = models.TextField()
-    belongs_to_lists = models.ManyToManyField('personal_list.SongList', through="personal_list.SongRating")
+
+    belongs_to_lists = models.ManyToManyField(
+        'personal_list.SongList',
+        through="personal_list.SongRating"
+    )
 
     def __str__(self):
         """
@@ -91,6 +95,7 @@ class Song(ModelAbstract):
         # Grab the top n songs with the highest ratings
         rated = Song.objects.annotate(
                 avg_rating=models.Avg('songrating__rating')
-            ).exclude(avg_rating=0).order_by('-avg_rating', 'anime__english_name')[:limit]
+            ).exclude(avg_rating=0).order_by(
+                '-avg_rating', 'anime__english_name'
+            )[:limit]
         return rated
-
