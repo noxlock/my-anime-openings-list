@@ -75,7 +75,7 @@ class Profile(ModelAbstract):
         ratings = SongRating.objects.filter(parent_list=self.user.songlist).values(
             'song__anime__cover', 'song__anime__english_name',
             'song__song_type', 'song__number', 'rating', 'song__video_link', 'song__pk').order_by(
-                'last_modified'
+                '-rating', '-last_modified'
             )
 
         return ratings

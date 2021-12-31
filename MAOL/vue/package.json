@@ -49,7 +49,10 @@
     },
     "rules": {
         "no-new": "off",
-        "no-plusplus": "off"
+        "no-plusplus": "off",
+        "no-unused-expressions": "off",
+        "prefer-object-spread": "off",
+        "no-param-reassign": "off"
     }
   },
   "browserslist": [

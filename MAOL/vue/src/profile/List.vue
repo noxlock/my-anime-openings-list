@@ -2,7 +2,7 @@
     <v-main>
         <ToolBar :user="user"></ToolBar>
         <ProfileBanner :profile="profile"></ProfileBanner>
-        <SongList :username="username" :ratings="ratings"></SongList>
+        <SongList :user="user" :username="username" :ratings="ratings"></SongList>
 
     </v-main>
 </template>
