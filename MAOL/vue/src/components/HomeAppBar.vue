@@ -1,20 +1,19 @@
 <template v-slot:extension>
-    <v-tabs class="d-flex justify-center">
-        <v-tabs-slider color="blue"></v-tabs-slider>
+    <v-tabs v-model="active_tab" class="d-flex justify-center">
 
-        <v-tab>
+        <v-tab href="http://127.0.0.1:8000/">
             Home
         </v-tab>
 
-        <v-tab>
+        <v-tab href="http://127.0.0.1:8000/anime">
             Anime
         </v-tab>
 
-        <v-tab>
+        <v-tab href="http://127.0.0.1:8000/top">
             Top
         </v-tab>
 
-        <v-tab>
+        <v-tab href="http://127.0.0.1:8000/random">
             Random
         </v-tab>
 
@@ -42,6 +41,7 @@ export default {
   data: () => ({
     searchClosed: true,
     query: null,
+    active_tab: 2,
   }),
 };
 </script>

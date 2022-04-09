@@ -2,6 +2,8 @@ import re
 import requests
 import time
 
+from django.utils.text import slugify
+
 from home.models import Anime, Song
 
 
@@ -30,6 +32,7 @@ def get_anime(pages=1):
                 coverImage {
                     large
                 }
+                seasonYear
             }
         }
     }
@@ -50,54 +53,110 @@ def get_anime(pages=1):
 
             japanese_name = media['title']['romaji']
             english_name = media['title']['english']
+            slug_name = slugify(japanese_name).replace('-', '_')
+
+            if Anime.objects.filter(slug_name=slug_name).exists():
+                slug_name += f"_{media['seasonYear']}"
 
             Anime.objects.update_or_create(
-                japanese_name=japanese_name,
+                japanese_name=japanese_name.title(),
                 # API results can have a null english name
                 english_name=english_name if english_name else japanese_name,
+                slug_name=slug_name,
                 studio=media['studios']['nodes'][0]['name'],
                 anilist_link=media['siteUrl'],
                 cover=media['coverImage']['large']
             )
 
 
-def get_song(anime):
+def get_videos(name):
+
+    anime = Anime.objects.filter(slug_name=name)
+
+    if anime.count() > 1:
+        raise ValueError(f'duplicate slug {name}')
 
     # for some reason, their API blocks the `requests` user agent,
     # so set a random one
     headers = {
         'user-agent': "MAOL"
     }
-    url = 'https://staging.animethemes.moe/api/anime/{0}?include=themes.entries.videos'
-
-    # format anime name to animethemes `slug`
-    name = re.sub(r'\W+', ' ', anime.japanese_name)
-    name = name.lower().replace(' ', '_')
+    url = 'https://staging.animethemes.moe/api/anime/{0}?include=animethemes.animethemeentries.videos'
+    errors = []
 
     r = requests.get(url.format(name), headers=headers)
     r = r.json()
 
     # either the anime name from anilist doesn't match up,
-    # or the anime doesn't have an entry. just skip it.
-    if r.get('errors'):
-        return 'Anime not found'
+    # or the anime doesn't have an entry.
+    if r.get('message'):
+        raise ValueError(f'{name}')
 
-    for theme in r['anime']['themes']:
+    for theme in r['anime']['animethemes']:
+        
+        if theme['slug'] not in ['OP', 'ED']:
+            continue
+
         # At the time of writing, playback is disabled on the staging server
-        video_link = theme['entries'][0]['videos'][0]['link'].replace('staging.', '')
+        video_link = theme['animethemeentries'][0]['videos'][0]['link'].replace('staging.', '')
 
         # The `sequence` is sometimes null, so we have to dig deeper for it
         number = video_link.replace('.webm', '').split('-')[1][2:]
 
+        detail_link = f"/song/{name}_{theme['slug']}{number}"
+
         Song.objects.update_or_create(
-            song_type=theme['type'],
+            anime=anime[0],
+            song_type=theme['slug'],
             number=number,
             video_link=video_link,
-            anime=anime
+            detail_link=detail_link
         )
 
 
-def get_all_songs():
+def get_songs(name):
+
+    anime = Anime.objects.filter(slug_name=name)
+
+    if anime.count() > 1:
+        raise ValueError(f'duplicate slug {name}')
+
+    # for some reason, their API blocks the `requests` user agent,
+    # so set a random one
+    headers = {
+        'user-agent': "MAOL"
+    }
+    url = 'https://staging.animethemes.moe/api/anime/{0}?include=animethemes.song'
+    errors = []
+
+    r = requests.get(url.format(name), headers=headers)
+    r = r.json()
+
+    # either the anime name from anilist doesn't match up,
+    # or the anime doesn't have an entry.
+    if r.get('message'):
+        raise ValueError(f'{name}')
+
+    for theme in r['anime']['animethemes']:
+
+        if theme['slug'] not in ['OP', 'ED']:
+            continue
+
+        sequence = theme['sequence']
+        if not theme['sequence']:
+            sequence = 1
+        
+        song = Song.objects.get(
+            anime__slug_name=anime[0].slug_name,
+            song_type=theme['slug'],
+            number=sequence,
+        )
+
+        song.name = theme['song']['title']
+        song.save()
+
+
+def create_all_songs():
     """
     Get all the songs relating to anime series we've grabbed.
     Create a `Song` model for each.
@@ -106,5 +165,24 @@ def get_all_songs():
     for anime in Anime.objects.all():
         # rate limit is 60/min
         time.sleep(1)
-        print(anime)
-        get_song(anime)
+
+        print(anime.slug_name)
+
+        try:
+            get_videos(anime.slug_name)
+            get_songs(anime.slug_name)
+        # if the anime name doesn't match up, skip it.
+        except ValueError as e:
+            print(e)
+            continue
+
+
+def get_all(pages=5):
+    get_anime(pages)
+    create_all_songs()
+
+
+# def fix():
+#     pass
+    # Kakegurui 2nd season -> kakegurui_2019
+    # Quintessential Quintuplets 2nd season -> gotoubun_no_hanayome_2021

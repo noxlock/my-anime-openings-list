@@ -14,10 +14,6 @@ class Profile(ModelAbstract):
     A user's profile. Data like profile picture/banner is stored here,
     but also anything else that should probably be extending the
     default User model.
-
-    It takes hard work to set a custom User model once you've already
-    started a project, and most of the things I want would
-    fit nicely in a model like this anyways.
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -58,7 +54,7 @@ class Profile(ModelAbstract):
         ratings = self.user.songlist.songrating_set.all()
 
         # Filter through the highest rated, and then most recently rated songs rated by the user.
-        songs = Song.objects.filter(songrating__in=ratings).values('video_link', 'anime__cover', 'pk').order_by(
+        songs = Song.objects.filter(songrating__in=ratings).values('pk', 'video_link', 'anime__cover',).order_by(
             '-songrating__rating', 'songrating__last_modified')[:limit]
 
         return songs
@@ -73,8 +69,8 @@ class Profile(ModelAbstract):
 
         # Grab all the user's SongRatings, along with details about the song.
         ratings = SongRating.objects.filter(parent_list=self.user.songlist).values(
-            'song__anime__cover', 'song__anime__english_name',
-            'song__song_type', 'song__number', 'rating', 'song__video_link', 'song__pk').order_by(
+            'song__anime__cover', 'song__anime__english_name', 'song__anime__slug_name',
+            'song__song_type', 'song__number', 'song__name', 'rating', 'song__video_link', 'song__pk').order_by(
                 '-rating', '-last_modified'
             )
 

@@ -2,15 +2,23 @@ const BundleTracker = require('webpack-bundle-tracker');
 
 const pages = {
   index: {
-    entry: './src/index.js',
+    entry: './src/pages/index.js',
     chunks: ['chunk-vendors'],
   },
   profile: {
-    entry: './src/profile.js',
+    entry: './src/pages/profile.js',
     chunks: ['chunk-vendors'],
   },
   list: {
-    entry: './src/list.js',
+    entry: './src/pages/list.js',
+    chunks: ['chunk-vendors'],
+  },
+  animeListing: {
+    entry: './src/pages/animeListing.js',
+    chunks: ['chunk-vendors'],
+  },
+  anime: {
+    entry: './src/pages/anime.js',
     chunks: ['chunk-vendors'],
   },
 };

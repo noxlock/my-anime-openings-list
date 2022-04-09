@@ -6,6 +6,7 @@
             {'text': 'Anime', 'value': 'song__anime__english_name'},
             {'text': 'Type', 'value': 'song__song_type'},
             {'text': 'Number', 'value': 'song__number'},
+            {'text': 'Song Name', 'value': 'song__name'},
             {'text': 'Rating', 'value': 'rating'},
             {'value': 'actions', 'sortable': false},
         ]"
@@ -28,7 +29,9 @@
 
                             <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="closePlay">Close</v-btn>
+                            <v-btn color="blue darken-1"
+                            text @click="closeDialog('playDialog')">Close
+                            </v-btn>
                             <v-spacer></v-spacer>
                             </v-card-actions>
                         </v-card>
@@ -37,22 +40,28 @@
                     <!-- Dialog for adding a song to your list -->
                     <v-dialog v-model="addDialog" max-width="500px">
                         <v-card>
-                            <v-card-title class="text-h5">
+                            <v-card-title class="text-h5 justify-center">
                                 Add this song to your list?
                             </v-card-title>
 
-                            <v-select
-                            :items="[1,2,3,4,5,6,7,8,9,10]"
-                            v-model="rating"
-                            label="Rating"
-                            return-object
-                            ></v-select>
+                            <div class="d-flex justify-center">
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-select
+                                :items="[1,2,3,4,5,6,7,8,9,10]"
+                                v-model="rating"
+                                label="Rating"
+                                return-object
+                                ></v-select>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                            </div>
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
 
                                 <v-btn color="blue darken-1"
-                                text @click="closeAddDialog">Cancel
+                                text @click="closeDialog('addDialog')">Cancel
                                 </v-btn>
 
                                 <v-btn color="blue darken-1"
@@ -75,7 +84,7 @@
                                 <v-spacer></v-spacer>
 
                                 <v-btn color="blue darken-1"
-                                text @click="closeDelete">Cancel
+                                text @click="closeDialog('deleteDialog')">Cancel
                                 </v-btn>
 
                                 <v-btn color="blue darken-1"
@@ -90,11 +99,11 @@
             </template>
 
             <!-- Edit Rating Value -->
-            <template v-slot:item.rating="props">
+            <template v-if="user == username" v-slot:item.rating="props">
                 <v-edit-dialog
                 :return-value.sync="props.item.rating"
                 @open="openRatingDialog(props.item)"
-                @close="closeRatingDialog"
+                @close="closeDialog('ratingDialog')"
                 >
                     {{ props.item.rating }}
                     <template v-slot:input>
@@ -121,12 +130,18 @@
                 </v-img>
             </template>
 
+            <template v-slot:item.song__name="{ item }">
+                <a :href="item.detail_link">
+                    {{ item.song__name }}
+                </a>
+            </template>
+
             <!-- Actions -->
             <template v-slot:item.actions="{ item }">
                 <v-icon
-                    small
-                    class="mr-2"
-                    @click="playSong(item)"
+                small
+                class="mr-2"
+                @click="playSong(item)"
                 >
                     mdi-play-circle
                 </v-icon>
@@ -188,6 +203,26 @@ export default {
       type: Array,
     },
   },
+  data: () => ({
+    snack: '',
+    snackText: '',
+    snackColour: '',
+    deleteDialog: false,
+    playDialog: false,
+    addDialog: false,
+    expanded: [],
+    index: -1,
+    rating: '',
+    videoSrc: '',
+    selected: null,
+  }),
+  watch: {
+    playDialog(val) {
+      if (!val) {
+        this.$refs.video.pause();
+      }
+    },
+  },
   methods: {
     addToList(song) {
       this.$http.post('/api/addtolist/', {
@@ -247,11 +282,6 @@ export default {
       this.videoSrc = this.selected;
     },
 
-    closePlay() {
-      this.playDialog = false;
-      this.$refs.video.pause();
-    },
-
     deleteItem(item) {
       this.selected = item;
       this.index = this.ratings.indexOf(item);
@@ -260,11 +290,7 @@ export default {
 
     deleteItemConfirm() {
       this.removeFromList(this.selected.song__pk);
-      this.closeDelete();
-    },
-
-    closeDelete() {
-      this.deleteDialog = false;
+      this.closeDialogue('deleteDialog');
     },
 
     saveRating(item) {
@@ -278,32 +304,15 @@ export default {
       this.selected = item;
     },
 
-    closeRatingDialog() {
-      this.ratingDialog = false;
-    },
-
     openAddDialog(item) {
       this.addDialog = true;
       this.selected = item.song__pk;
     },
 
-    closeAddDialog() {
-      this.addDialog = false;
+    closeDialog(dialog) {
+      this.$data[dialog] = false;
     },
   },
-  data: () => ({
-    snack: '',
-    snackText: '',
-    snackColour: '',
-    deleteDialog: false,
-    playDialog: false,
-    addDialog: false,
-    expanded: [],
-    index: -1,
-    rating: '',
-    videoSrc: '',
-    selected: null,
-  }),
   mounted() {
     this.$http.defaults.xsrfHeaderName = 'X-CSRFToken';
     this.$http.defaults.xsrfCookieName = 'csrftoken';
@@ -320,6 +329,10 @@ export default {
 }
 
 .v-select {
-    width: 75px;
+    max-width: 75px;
+}
+
+.mid {
+    max-width: 50px;
 }
 </style>

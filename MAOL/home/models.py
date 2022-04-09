@@ -34,6 +34,7 @@ class Anime(ModelAbstract):
     """
     japanese_name = models.TextField()
     english_name = models.TextField()
+    slug_name = models.TextField()
     studio = models.TextField()
     anilist_link = models.TextField()
     # cover photo
@@ -53,9 +54,10 @@ class Song(ModelAbstract):
         ('OST', 'Soundtrack'),
     ]
 
-    song_type = models.CharField(max_length=3, choices=song_type_choices)
+    song_type = models.CharField(max_length=10, choices=song_type_choices)
     name = models.TextField(default='')
     artist = models.TextField(default='')
+    detail_link = models.TextField(default='')
     video_link = models.TextField(default='')
     anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
     # E.G OP 1
