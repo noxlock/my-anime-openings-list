@@ -36,8 +36,11 @@ class Profile(ModelAbstract):
     #     """
 
     #     ratings = self.user.songlist.songrating_set.all()
-    #     songs = Song.objects.filter(songrating__in=ratings).values('video_link', 'anime__cover', 'pk').order_by(
-    #         '-songrating__last_modified')[:limit]
+    #     songs = Song.objects.filter(songrating__in=ratings).values(
+    #         'video_link',
+    #         'anime__cover',
+    #         'pk'
+    #     ).order_by('-songrating__last_modified')[:limit]
 
     #     return songs
 
@@ -53,9 +56,15 @@ class Profile(ModelAbstract):
         # Grab all the user's ratings
         ratings = self.user.songlist.songrating_set.all()
 
-        # Filter through the highest rated, and then most recently rated songs rated by the user.
-        songs = Song.objects.filter(songrating__in=ratings).values('pk', 'video_link', 'anime__cover',).order_by(
-            '-songrating__rating', 'songrating__last_modified')[:limit]
+        # Filter through the highest rated, and then
+        # most recently rated songs rated by the user.
+        songs = Song.objects.filter(
+            songrating__in=ratings
+        ).values(
+            'pk',
+            'video_link',
+            'anime__cover'
+        ).order_by('-songrating__rating', 'songrating__last_modified')[:limit]
 
         return songs
 
@@ -68,11 +77,19 @@ class Profile(ModelAbstract):
         """
 
         # Grab all the user's SongRatings, along with details about the song.
-        ratings = SongRating.objects.filter(parent_list=self.user.songlist).values(
-            'song__anime__cover', 'song__anime__english_name', 'song__anime__slug_name',
-            'song__song_type', 'song__number', 'song__name', 'rating', 'song__video_link', 'song__pk').order_by(
-                '-rating', '-last_modified'
-            )
+        ratings = SongRating.objects.filter(
+            parent_list=self.user.songlist
+        ).values(
+            'song__anime__cover',
+            'song__anime__english_name',
+            'song__anime__slug_name',
+            'song__song_type',
+            'song__number',
+            'song__name',
+            'rating',
+            'song__video_link',
+            'song__pk'
+        ).order_by('-rating', '-last_modified')
 
         return ratings
 
@@ -116,12 +133,19 @@ class SongRating(ModelAbstract):
 
     song = models.ForeignKey('home.Song', on_delete=models.CASCADE)
     parent_list = models.ForeignKey(SongList, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField(null=True, blank=True, validators=[MaxValueValidator(10)])
+    rating = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        validators=[MaxValueValidator(10)]
+        )
 
     class Meta:
         # You should only be able to have one rating per song.
         constraints = [
-            models.UniqueConstraint(fields=['parent_list', 'song'], name='one_rating_only')
+            models.UniqueConstraint(
+                fields=['parent_list', 'song'],
+                name='one_rating_only'
+            )
         ]
 
     def __str__(self):

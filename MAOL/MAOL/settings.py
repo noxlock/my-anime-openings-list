@@ -95,7 +95,7 @@ WEBPACK_LOADER = {
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/auth/login'
-LOGOUT_REDIRECT_URL='/auth/login'
+LOGOUT_REDIRECT_URL = '/auth/login'
 
 
 # Database

@@ -1,4 +1,3 @@
-import re
 import requests
 import time
 
@@ -44,7 +43,10 @@ def get_anime(pages=1):
         variables = {
             'page': pages
         }
-        r = requests.post("https://graphql.anilist.co", json={'query': q, 'variables': variables})
+        r = requests.post(
+            "https://graphql.anilist.co",
+            json={'query': q, 'variables': variables}
+        )
         responses.append(r.json())
         pages -= 1
 
@@ -81,24 +83,23 @@ def get_videos(name):
     headers = {
         'user-agent': "MAOL"
     }
-    url = 'https://staging.animethemes.moe/api/anime/{0}?include=animethemes.animethemeentries.videos'
-    errors = []
+    include = '?include=animethemes.animethemeentries.videos'
+    url = 'https://staging.animethemes.moe/api/anime/{0}{1}'
 
-    r = requests.get(url.format(name), headers=headers)
+    r = requests.get(url.format(name, include), headers=headers)
     r = r.json()
 
     # either the anime name from anilist doesn't match up,
     # or the anime doesn't have an entry.
     if r.get('message'):
-        raise ValueError(f'{name}')
+        raise ValueError(f'Anime not found: {name}')
 
     for theme in r['anime']['animethemes']:
-        
         if theme['slug'] not in ['OP', 'ED']:
             continue
 
         # At the time of writing, playback is disabled on the staging server
-        video_link = theme['animethemeentries'][0]['videos'][0]['link'].replace('staging.', '')
+        video_link = theme['animethemeentries'][0]['videos'][0]['link'].replace('staging.', '')  # noqa: E501
 
         # The `sequence` is sometimes null, so we have to dig deeper for it
         number = video_link.replace('.webm', '').split('-')[1][2:]
@@ -126,16 +127,16 @@ def get_songs(name):
     headers = {
         'user-agent': "MAOL"
     }
-    url = 'https://staging.animethemes.moe/api/anime/{0}?include=animethemes.song'
-    errors = []
+    include = '?include=animethemes.song'
+    url = 'https://staging.animethemes.moe/api/anime/{0}{1}'
 
-    r = requests.get(url.format(name), headers=headers)
+    r = requests.get(url.format(name, include), headers=headers)
     r = r.json()
 
     # either the anime name from anilist doesn't match up,
     # or the anime doesn't have an entry.
     if r.get('message'):
-        raise ValueError(f'{name}')
+        raise ValueError(f'Anime not found: {name}')
 
     for theme in r['anime']['animethemes']:
 
@@ -145,7 +146,7 @@ def get_songs(name):
         sequence = theme['sequence']
         if not theme['sequence']:
             sequence = 1
-        
+
         song = Song.objects.get(
             anime__slug_name=anime[0].slug_name,
             song_type=theme['slug'],

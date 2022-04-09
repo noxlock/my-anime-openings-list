@@ -23,7 +23,12 @@ def anime_listing(request):
 def anime(request, id):
     if id:
         try:
-            anime = Anime.objects.filter(pk=id).values('english_name', 'cover', 'pk')
+            anime = Anime.objects.filter(pk=id).values(
+                'english_name',
+                'cover',
+                'pk'
+            )
+
         except Anime.DoesNotExist:
             return HttpResponseNotFound('<h1>Anime not found</h1>')
         else:
@@ -31,4 +36,9 @@ def anime(request, id):
             songs = Song.objects.filter(anime=id).values('video_link', 'pk')
             songs = song_serializer(songs)
             anime = song_serializer(anime)
-            return render(request, 'home/anime.html', {'anime': anime, 'songs': songs})
+
+            return render(
+                request,
+                'home/anime.html',
+                {'anime': anime, 'songs': songs}
+            )

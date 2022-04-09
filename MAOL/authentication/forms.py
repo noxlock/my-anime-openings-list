@@ -4,12 +4,24 @@ from django.forms.widgets import EmailInput, PasswordInput, TextInput
 
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailField(widget=EmailInput(attrs={'placeholder': 'Email'}))
-    username = forms.CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
-    password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
-    password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Verify Password'}))
+    email = forms.EmailField(
+        widget=EmailInput(attrs={'placeholder': 'Email'})
+    )
+    username = forms.CharField(
+        widget=TextInput(attrs={'placeholder': 'Username'})
+    )
+    password1 = forms.CharField(
+        widget=PasswordInput(attrs={'placeholder': 'Password'})
+    )
+    password2 = forms.CharField(
+        widget=PasswordInput(attrs={'placeholder': 'Verify Password'})
+    )
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
-    password = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Password'}))
+    username = forms.CharField(
+        widget=TextInput(attrs={'placeholder': 'Username'})
+    )
+    password = forms.CharField(
+        widget=PasswordInput(attrs={'placeholder': 'Password'})
+    )

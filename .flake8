@@ -1,0 +1,4 @@
+[flake8]
+exclude =
+    MAOL/MAOL/settings*
+    MAOL/*/migrations
