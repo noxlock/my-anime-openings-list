@@ -1,15 +1,7 @@
 <template>
     <div>
         <v-data-table
-        :headers="[
-            {'value': 'song__anime__cover'},
-            {'text': 'Anime', 'value': 'song__anime__english_name'},
-            {'text': 'Type', 'value': 'song__song_type'},
-            {'text': 'Number', 'value': 'song__number'},
-            {'text': 'Song Name', 'value': 'song__name'},
-            {'text': 'Rating', 'value': 'rating'},
-            {'value': 'actions', 'sortable': false},
-        ]"
+        :headers="headers"
         :items="ratings"
         :items-per-page="-1"
         hide-default-footer
@@ -17,9 +9,6 @@
         >
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>{{username}}'s Song List</v-toolbar-title>
-                    <v-spacer></v-spacer>
-
                     <!-- Dialogue for playing a song -->
                     <v-dialog v-model="playDialog" max-width="700px">
                         <v-card>
@@ -131,7 +120,7 @@
             </template>
 
             <template v-slot:item.song__name="{ item }">
-                <a :href="item.detail_link">
+                <a :href="item.song__detail_link">
                     {{ item.song__name }}
                 </a>
             </template>
@@ -202,6 +191,9 @@ export default {
     ratings: {
       type: Array,
     },
+    headers: {
+      type: Array,
+    },
   },
   data: () => ({
     snack: '',
@@ -225,6 +217,11 @@ export default {
   },
   methods: {
     addToList(song) {
+      if (song.pk) {
+        song = song.pk;
+      } else {
+        song = song.song__pk;
+      }
       this.$http.post('/api/addtolist/', {
         method: 'POST',
         data: { song, rating: this.rating },
@@ -277,7 +274,11 @@ export default {
     },
 
     playSong(item) {
-      this.selected = item.song__video_link;
+      if (item.video_link) {
+        this.selected = item.video_link;
+      } else {
+        this.selected = item.song__video_link;
+      }
       this.playDialog = true;
       this.videoSrc = this.selected;
     },
@@ -290,13 +291,13 @@ export default {
 
     deleteItemConfirm() {
       this.removeFromList(this.selected.song__pk);
-      this.closeDialogue('deleteDialog');
+      this.closeDialog('deleteDialog');
     },
 
     saveRating(item) {
       this.editRating(item.song__pk);
       item.rating = this.rating;
-      this.ratingDialog = false;
+      this.closeDialog('ratingDialog');
     },
 
     openRatingDialog(item) {
@@ -306,7 +307,7 @@ export default {
 
     openAddDialog(item) {
       this.addDialog = true;
-      this.selected = item.song__pk;
+      this.selected = item;
     },
 
     closeDialog(dialog) {

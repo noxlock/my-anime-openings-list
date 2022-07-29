@@ -32,8 +32,9 @@ def anime(request, id):
         except Anime.DoesNotExist:
             return HttpResponseNotFound('<h1>Anime not found</h1>')
         else:
-            # anime = anime.values('english_name', 'cover', 'pk')
-            songs = Song.objects.filter(anime=id).values('video_link', 'pk')
+            songs = Song.objects.filter(anime=id).values(
+                'song_type', 'number', 'name', 'video_link', 'pk'
+            )
             songs = song_serializer(songs)
             anime = song_serializer(anime)
 
@@ -41,4 +42,34 @@ def anime(request, id):
                 request,
                 'home/anime.html',
                 {'anime': anime, 'songs': songs}
+            )
+
+
+def song(request, slug):
+    if slug:
+        try:
+            slug = slug.split('-')
+            print(slug)
+            song = Song.objects.filter(
+                anime__slug_name=slug[0],
+                song_type=slug[1],
+                number=slug[2]
+            ).values(
+                'name',
+                'video_link',
+                'anime__english_name',
+                'song_type',
+                'number',
+                'pk'
+            )
+
+        except Song.DoesNotExist:
+            return HttpResponseNotFound('<h1>Song not found</h1>')
+        else:
+            song = song_serializer(song)
+
+            return render(
+                request,
+                'home/song.html',
+                {'song': song}
             )

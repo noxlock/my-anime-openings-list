@@ -95,7 +95,7 @@ def get_videos(name):
         raise ValueError(f'Anime not found: {name}')
 
     for theme in r['anime']['animethemes']:
-        if theme['slug'] not in ['OP', 'ED']:
+        if theme['type'] not in ['OP', 'ED']:
             continue
 
         # At the time of writing, playback is disabled on the staging server
@@ -104,14 +104,13 @@ def get_videos(name):
         # The `sequence` is sometimes null, so we have to dig deeper for it
         number = video_link.replace('.webm', '').split('-')[1][2:]
 
-        detail_link = f"/song/{name}_{theme['slug']}{number}"
-
-        Song.objects.update_or_create(
+        detail_link = f"/song/{name}-{theme['type']}-{number}"
+        Song.objects.get_or_create(
             anime=anime[0],
-            song_type=theme['slug'],
+            song_type=theme['type'],
             number=number,
-            video_link=video_link,
-            detail_link=detail_link
+            detail_link=detail_link,
+            defaults={'video_link': video_link}
         )
 
 
@@ -149,10 +148,9 @@ def get_songs(name):
 
         song = Song.objects.get(
             anime__slug_name=anime[0].slug_name,
-            song_type=theme['slug'],
+            song_type=theme['type'],
             number=sequence,
         )
-
         song.name = theme['song']['title']
         song.save()
 
@@ -165,7 +163,7 @@ def create_all_songs():
 
     for anime in Anime.objects.all():
         # rate limit is 60/min
-        time.sleep(1)
+        time.sleep(2)
 
         print(anime.slug_name)
 
@@ -181,9 +179,3 @@ def create_all_songs():
 def get_all(pages=5):
     get_anime(pages)
     create_all_songs()
-
-
-# def fix():
-#     pass
-    # Kakegurui 2nd season -> kakegurui_2019
-    # Quintessential Quintuplets 2nd season -> gotoubun_no_hanayome_2021

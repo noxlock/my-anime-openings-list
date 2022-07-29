@@ -21,6 +21,10 @@ const pages = {
     entry: './src/pages/anime.js',
     chunks: ['chunk-vendors'],
   },
+  song: {
+    entry: './src/pages/song.js',
+    chunks: ['chunk-vendors'],
+  },
 };
 
 module.exports = {

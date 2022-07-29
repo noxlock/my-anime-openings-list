@@ -88,6 +88,7 @@ class Profile(ModelAbstract):
             'song__name',
             'rating',
             'song__video_link',
+            'song__detail_link',
             'song__pk'
         ).order_by('-rating', '-last_modified')
 

@@ -33,20 +33,12 @@
                 </v-col>
 
                 <v-col cols="9">
-                    <div id="songs-container">
-                        <v-row>
-                            <template v-for="song in songs">
-                                <v-col cols="3" :key="song.pk">
-                                    <video ref="video"
-                                    :src="song.video_link"
-                                    controls width='400' height='225'
-                                    preload="none">
-                                        <source type="video/webm">
-                                    </video>
-                                </v-col>
-                            </template>
-                        </v-row>
-                    </div>
+                    <SongList :ratings="songs" :headers="[
+                        {'text': 'Type', 'value': 'song_type'},
+                        {'text': 'Number', 'value': 'number'},
+                        {'text': 'Song Name', 'value': 'name'},
+                        {'value': 'actions', 'sortable': false},
+                    ]"></Songlist>
                 </v-col>
             </v-row>
 
@@ -57,6 +49,7 @@
 import ToolBar from '../components/ToolBar.vue';
 import HomeAppBar from '../components/HomeAppBar.vue';
 import Banner from '../components/Banner.vue';
+import SongList from '../components/SongList.vue';
 
 export default {
   name: 'Anime',
@@ -64,6 +57,7 @@ export default {
     ToolBar,
     HomeAppBar,
     Banner,
+    SongList,
   },
   props: {
     anime: {

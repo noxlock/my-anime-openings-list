@@ -10,6 +10,7 @@ from personal_list.models import SongRating
 def add_to_list(request):
     body = request.body.decode('utf-8')
     body = json.loads(body)
+
     body['data']['parent_list'] = request.user.songlist.pk
 
     form = AddSongRatingForm(body['data'])
