@@ -52,7 +52,7 @@ def list(request, id=None):
         # Pass the following to the template:
         # profile (for banner & picture)
         # ratings (for their list)
-        # id (to display)
+        # id (for certain display conditions)
         context = {'profile': json_profile, 'ratings': ratings, 'id': id}
         return render(request, 'list.html', context)
 

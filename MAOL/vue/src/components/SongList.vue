@@ -119,6 +119,12 @@
                 </v-img>
             </template>
 
+            <template v-slot:item.name="{ item }">
+                <a :href="item.detail_link">
+                    {{ item.name }}
+                </a>
+            </template>
+
             <template v-slot:item.song__name="{ item }">
                 <a :href="item.song__detail_link">
                     {{ item.song__name }}
@@ -139,20 +145,20 @@
                 small
                 class="mr-2"
                 @click="openAddDialog(item)"
+                v-if="user != username"
                 >
                     mdi-plus-thick
                 </v-icon>
 
-                <template v-if="user == username">
-                    <v-icon
-                    small
-                    @click="deleteItem(item)"
-                    >
-                        mdi-delete
-                    </v-icon>
-                </template>
-
+                <v-icon
+                small
+                @click="deleteItem(item)"
+                v-if="user == username"
+                >
+                    mdi-delete
+                </v-icon>
             </template>
+
         </v-data-table>
 
         <v-snackbar
@@ -187,6 +193,7 @@ export default {
     },
     username: {
       type: String,
+      default: 'system',
     },
     ratings: {
       type: Array,
@@ -217,6 +224,9 @@ export default {
   },
   methods: {
     addToList(song) {
+      // Since the SongList can be used in either a User's
+      // List, or an Anime's List, we need to check which
+      // variable to use when calling our API.
       if (song.pk) {
         song = song.pk;
       } else {
@@ -258,6 +268,11 @@ export default {
     },
 
     removeFromList(song) {
+      if (song.pk) {
+        song = song.pk;
+      } else {
+        song = song.song__pk;
+      }
       this.$http.post('/api/deletefromlist/', {
         method: 'POST',
         data: { song },
@@ -290,7 +305,7 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.removeFromList(this.selected.song__pk);
+      this.removeFromList(this.selected);
       this.closeDialog('deleteDialog');
     },
 

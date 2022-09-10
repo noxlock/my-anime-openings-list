@@ -2,7 +2,8 @@
     <v-main>
         <ToolBar :user="user"></ToolBar>
         <ProfileBanner :profile="profile"></ProfileBanner>
-        <SongList :user="user" :username="username" :ratings="ratings" :headers="[
+        <SongList
+            :username="username" :user="user" :ratings="ratings" :headers="[
             {'value': 'song__anime__cover'},
             {'text': 'Anime', 'value': 'song__anime__english_name'},
             {'text': 'Type', 'value': 'song__song_type'},

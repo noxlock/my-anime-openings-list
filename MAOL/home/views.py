@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
 
 from home.models import Anime, Song
 from .serializers import song_serializer
+
+from random import randint
 
 
 def index(request):
@@ -14,7 +16,7 @@ def index(request):
 
 
 def anime_listing(request):
-    qs = Anime.objects.values('english_name', 'cover', 'pk')[:100]
+    qs = Anime.objects.values('english_name', 'cover', 'pk')
 
     qs_json = song_serializer(qs)
     return render(request, 'home/anime_listing.html', {'animes': qs_json})
@@ -33,7 +35,7 @@ def anime(request, id):
             return HttpResponseNotFound('<h1>Anime not found</h1>')
         else:
             songs = Song.objects.filter(anime=id).values(
-                'song_type', 'number', 'name', 'video_link', 'pk'
+                'detail_link', 'song_type', 'number', 'name', 'video_link', 'pk'
             )
             songs = song_serializer(songs)
             anime = song_serializer(anime)
@@ -49,7 +51,6 @@ def song(request, slug):
     if slug:
         try:
             slug = slug.split('-')
-            print(slug)
             song = Song.objects.filter(
                 anime__slug_name=slug[0],
                 song_type=slug[1],
@@ -73,3 +74,15 @@ def song(request, slug):
                 'home/song.html',
                 {'song': song}
             )
+
+def random_song(request):
+    first = Song.objects.first().pk
+    last = Song.objects.last().pk
+    
+
+    rand = randint(first, last)
+    song = Song.objects.get(pk=rand)
+    print(f"rand: {rand}, song: {song}")
+
+    return redirect(f'/song/{song.anime.slug_name}-{song.song_type}-{song.number}')
+

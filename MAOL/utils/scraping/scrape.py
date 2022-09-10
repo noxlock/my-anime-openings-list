@@ -139,12 +139,15 @@ def get_songs(name):
 
     for theme in r['anime']['animethemes']:
 
-        if theme['slug'] not in ['OP', 'ED']:
+        if theme['type'] not in ['OP', 'ED']:
             continue
 
-        sequence = theme['sequence']
-        if not theme['sequence']:
+        if theme['sequence']:
+            sequence = theme['sequence'] 
+        else:
             sequence = 1
+
+        # print(f"Song: {theme['song']['title']} {theme['type']}{sequence}\n")
 
         song = Song.objects.get(
             anime__slug_name=anime[0].slug_name,

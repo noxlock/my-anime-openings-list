@@ -1,6 +1,6 @@
 <template>
     <v-main>
-        <ToolBar :user="username"></ToolBar>
+        <ToolBar :user="user"></ToolBar>
         <HomeAppBar></HomeAppBar>
         <div id="thx">
         <Banner
@@ -33,7 +33,8 @@
                 </v-col>
 
                 <v-col cols="9">
-                    <SongList :ratings="songs" :headers="[
+                    <SongList :ratings="songs" :user="user"
+                        :headers="[
                         {'text': 'Type', 'value': 'song_type'},
                         {'text': 'Number', 'value': 'number'},
                         {'text': 'Song Name', 'value': 'name'},
@@ -65,6 +66,9 @@ export default {
     },
     songs: {
       type: Array,
+    },
+    user: {
+      type: String,
     },
     username: {
       type: String,
