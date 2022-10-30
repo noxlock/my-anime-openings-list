@@ -119,6 +119,15 @@
                 </v-img>
             </template>
 
+            <template v-slot:item.anime__cover="{ item }">
+                <v-img
+                contain
+                :aspect-ratio="16/9"
+                :height="100"
+                :src="item.anime__cover">
+                </v-img>
+            </template>
+
             <template v-slot:item.name="{ item }">
                 <a :href="item.detail_link">
                     {{ item.name }}

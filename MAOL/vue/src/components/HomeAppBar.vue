@@ -1,35 +1,39 @@
-<template v-slot:extension>
-    <v-tabs v-model="active_tab" class="d-flex justify-center">
+<template>
+    <v-card>
+        <v-tabs
+        hide-slider
+        class="d-flex justify-center"
+        >
+            <v-tab class="home" href="/">
+                Home
+            </v-tab>
 
-        <v-tab href="http://127.0.0.1:8000/">
-            Home
-        </v-tab>
+            <v-tab href="/anime">
+                Anime
+            </v-tab>
 
-        <v-tab href="http://127.0.0.1:8000/anime">
-            Anime
-        </v-tab>
+            <v-tab href="/top">
+                Top
+            </v-tab>
 
-        <v-tab href="http://127.0.0.1:8000/top">
-            Top
-        </v-tab>
+            <v-tab href="/random">
+                Random
+            </v-tab>
 
-        <v-tab href="http://127.0.0.1:8000/random">
-            Random
-        </v-tab>
+            <v-text-field
+                @focus="searchClosed = false"
+                @blur="searchClosed = true"
+                v-model='query'
+                placeholder="Search"
+                filled
+                dense
+                prepend-inner-icon='mdi-magnify'
+                class="search mt-1"
+                :class="{ 'closed': searchClosed && !query }"
+            ></v-text-field>
+        </v-tabs>
 
-        <v-text-field
-            @focus="searchClosed = false"
-            @blur="searchClosed = true"
-            v-model='query'
-            placeholder="Search"
-            filled
-            dense
-            prepend-inner-icon='mdi-magnify'
-            class="search mt-1"
-            :class="{ 'closed': searchClosed && !query }"
-        ></v-text-field>
-    </v-tabs>
-
+    </v-card>
 </template>
 
 <script>
@@ -41,7 +45,6 @@ export default {
   data: () => ({
     searchClosed: true,
     query: null,
-    active_tab: 2,
   }),
 };
 </script>
@@ -57,4 +60,6 @@ export default {
         max-width: 45px
         .v-input__slot
             background: transparent !important
+.v-tab--active
+    color: rgba(0,0,0,.54) !important
 </style>

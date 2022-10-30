@@ -45,20 +45,35 @@
                 style='background-color: lightgray;'
                 >
                     <video controls width='35%' preload='auto'>
-                        <source :src=songs[selected].video_link type="video/webm">
+                        <source :src=selectedSong.video_link type="video/webm">
                     </video>
                     <div style="padding-left: 15em; color:blue;">
+                        <a :href="selectedSong.detail_link">
+                            <h3>
+                                {{
+                                    selectedSong.anime__english_name + ' '
+                                    + selectedSong.song_type + selectedSong.number
+                                }}
+                                <br/>
+                            </h3>
+                            <h4>
+                                {{
+                                    selectedSong.name
+                                }}
+                            </h4>
+                        </a>
+                        <br/>
                         <v-select
                         :items="[1,2,3,4,5,6,7,8,9,10]"
                         v-model="rating"
                         label="Rating"
                         return-object
-                        filled="true"
+                        :filled=true
                         ></v-select>
                         <v-btn
                         color="primary"
                         :disabled="rating === ''"
-                        @click="addToList(songs[selected].pk)"
+                        @click="addToList(selectedSong.pk)"
                         >
                             Add To List
                         </v-btn>
@@ -123,6 +138,11 @@ export default {
         this.snackColour = 'error';
         this.snackText = 'An unknown error has occurred';
       });
+    },
+  },
+  computed: {
+    selectedSong() {
+      return this.songs[this.selected];
     },
   },
   mounted() {

@@ -4,28 +4,9 @@
         <HomeAppBar></HomeAppBar> <!--MAYBE-->
 
         <!-- Banner and profile picture -->
-        <ProfileBanner :profile="profile"></ProfileBanner>
-
-        <v-row>
-            <v-col cols="2" class="left-box">
-                <v-btn>
-                    <a :href="'/profile/' + username + '/list'">Song List</a>
-                </v-btn>
-                <br/>
-                <v-btn>
-                    <a>Add Friend</a>
-                </v-btn>
-                <br/>
-                <v-btn>
-                    <a>Send Message</a>
-                </v-btn>
-            </v-col>
-
-            <v-col cols="10" style="float: right;">
-                <v-card outlined class="text-h3"> {{username}}'s Top Songs </v-card>
-                <Carousel :songs="top"></Carousel>
-            </v-col>
-        </v-row>
+        <ProfileBanner :profile="profile" :username="username"></ProfileBanner>
+        <v-card outlined class="text-h3"> {{username}}'s Top Songs </v-card>
+        <Carousel :songs="top"></Carousel>
     </v-main>
 </template>
 

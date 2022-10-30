@@ -8,7 +8,16 @@ from random import randint
 
 
 def index(request):
-    qs = Song.get_top_songs(20).values('video_link', 'anime__cover', 'pk')
+    qs = Song.objects.get_top_songs().values(
+        'video_link',
+        'name',
+        'detail_link',
+        'song_type',
+        'number',
+        'anime__english_name',
+        'anime__cover',
+        'pk'
+    )
 
     qs_json = song_serializer(qs)
 
@@ -82,7 +91,21 @@ def random_song(request):
 
     rand = randint(first, last)
     song = Song.objects.get(pk=rand)
-    print(f"rand: {rand}, song: {song}")
 
     return redirect(f'/song/{song.anime.slug_name}-{song.song_type}-{song.number}')
+
+def top_songs(request):
+    qs = Song.objects.get_top_songs().values(
+        'anime__cover',
+        'anime__english_name',
+        'detail_link',
+        'song_type',
+        'number',
+        'name',
+        'video_link',
+        'pk'
+    )
+
+    qs_json = song_serializer(qs)
+    return render(request, 'home/top_songs.html', {'songs': qs_json})
 

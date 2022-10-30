@@ -44,10 +44,34 @@ class Anime(ModelAbstract):
         return self.english_name
 
 
+class SongManager(models.Manager):
+    def get_top_songs(self):
+        """
+        Get the top rated songs in the database.
+
+        If using this for a carousel, perform
+        .values('video_link', 'anime__cover', 'pk')
+        on the queryset.
+
+        @limit: How many songs to get
+        """
+
+        # Grab the top n songs with the highest ratings
+        rated = Song.objects.annotate(
+                avg_rating=models.Avg('songrating__rating')
+            ).exclude(avg_rating=0).order_by(
+                '-avg_rating', 'anime__english_name'
+            )
+        return rated
+
+
 class Song(ModelAbstract):
     """
     An anime track, can be OP, ED, OST.
     """
+
+    objects = SongManager()
+
     song_type_choices = [
         ('OP', 'Opening'),
         ('ED', 'Ending'),
@@ -82,22 +106,3 @@ class Song(ModelAbstract):
         e.g Lisa - Gurenge
         """
         return self.artist + ' ' + self.name
-
-    def get_top_songs(self, limit=20):
-        """
-        Get the top rated songs in the database.
-
-        If using this for a carousel, perform
-        .values('video_link', 'anime__cover', 'pk')
-        on the queryset.
-
-        @limit: How many songs to get
-        """
-
-        # Grab the top n songs with the highest ratings
-        rated = Song.objects.annotate(
-                avg_rating=models.Avg('songrating__rating')
-            ).exclude(avg_rating=0).order_by(
-                '-avg_rating', 'anime__english_name'
-            )[:limit]
-        return rated

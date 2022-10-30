@@ -20,7 +20,16 @@ def profile(request, id=None):
 
             # Get the top rated, and recently rated songs of the user,
             # Serializing the querysets as well.
-            topRated = song_serializer(profile[0].get_top_ratings(20))
+            topRated = song_serializer(profile[0].get_top_ratings(20).values(
+                'video_link',
+                'name',
+                'detail_link',
+                'song_type',
+                'number',
+                'anime__english_name',
+                'anime__cover',
+                'pk'
+            ))
             # recentRated = song_serializer(profile[0].get_recent_ratings(20))
 
             context = {'profile': json_profile, 'topRated': topRated}

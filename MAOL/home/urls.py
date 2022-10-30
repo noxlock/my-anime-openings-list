@@ -8,4 +8,5 @@ urlpatterns = [
     path('anime/<str:id>', views.anime, name='anime'),
     path('song/<str:slug>', views.song, name='song'),
     path('random/', views.random_song, name='random_song'),
+    path('top/', views.top_songs, name='top_songs'),
 ]

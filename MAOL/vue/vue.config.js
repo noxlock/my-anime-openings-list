@@ -25,6 +25,10 @@ const pages = {
     entry: './src/pages/song.js',
     chunks: ['chunk-vendors'],
   },
+  top_songs: {
+    entry: './src/pages/top_songs.js',
+    chunks: ['chunk-vendors'],
+  },
 };
 
 module.exports = {

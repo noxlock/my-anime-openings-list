@@ -1,8 +1,9 @@
 import Vue from 'vue';
+
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
-import Song from '../song/Song.vue';
+import Top from '../top_songs/TopSongs.vue';
 import vuetify from '../plugins/vuetify';
 
 Vue.config.productionTip = false;
@@ -10,6 +11,6 @@ Vue.use(VueAxios, axios);
 
 new Vue({
   vuetify,
-  el: '#song',
-  components: { Song },
+  el: '#top',
+  components: { Top },
 });
