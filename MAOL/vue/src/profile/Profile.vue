@@ -1,12 +1,12 @@
 <template>
     <v-main>
-        <ToolBar :user="username"></ToolBar>
+        <ToolBar :user="user"></ToolBar>
         <HomeAppBar></HomeAppBar> <!--MAYBE-->
 
         <!-- Banner and profile picture -->
         <ProfileBanner :profile="profile" :username="username"></ProfileBanner>
         <v-card outlined class="text-h3"> {{username}}'s Top Songs </v-card>
-        <Carousel :songs="top"></Carousel>
+        <Carousel :songs="top" :user="user" :username="username"></Carousel>
     </v-main>
 </template>
 
@@ -31,9 +31,9 @@ export default {
     username: {
       type: String,
     },
-    // recent: {
-    //   type: Array,
-    // },
+    user: {
+      type: String,
+    },
     top: {
       type: Array,
     },

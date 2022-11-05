@@ -1,7 +1,7 @@
 <template>
     <v-main>
-        <ToolBar :user="user"></ToolBar>
-        <ProfileBanner :profile="profile"></ProfileBanner>
+        <ToolBar :username="user"></ToolBar>
+        <ProfileBanner :profile="profile" :username="username"></ProfileBanner>
         <SongList
             :username="username" :user="user" :ratings="ratings" :headers="[
             {'value': 'song__anime__cover'},

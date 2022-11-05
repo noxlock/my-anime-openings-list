@@ -2,17 +2,13 @@
         <v-main>
             <ToolBar :user="username"></ToolBar>
             <HomeAppBar></HomeAppBar>
-            <Banner
-            :styles="'home-style'"
-            :image="`https://wallpaperboat.com/wp-content/uploads/2020/06/03/42361/aesthetic-anime-01.jpg`"
+            <BannerCarousel
             :height="'500'"
             :heading="'MAOL'"
-            :subheader="'The best anime site since ' + date.toLocaleString()"
-            >
-            </Banner>
+            :subheader="'The best anime site since ' + date.toLocaleString()">
+            </BannerCarousel>
 
             <v-card outlined class="text-h4">Top Songs</v-card>
-            <!-- <p>{{songs[0]}}</p> -->
             <Carousel :songs="songs"></Carousel>
         </v-main>
 </template>
@@ -20,7 +16,7 @@
 <script>
 import ToolBar from '../components/ToolBar.vue';
 import HomeAppBar from '../components/HomeAppBar.vue';
-import Banner from '../components/Banner.vue';
+import BannerCarousel from '../components/BannerCarousel.vue';
 import Carousel from '../components/Carousel.vue';
 
 export default {
@@ -28,7 +24,7 @@ export default {
   components: {
     ToolBar,
     HomeAppBar,
-    Banner,
+    BannerCarousel,
     Carousel,
   },
   props: {

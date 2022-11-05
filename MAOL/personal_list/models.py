@@ -28,22 +28,6 @@ class Profile(ModelAbstract):
         format="PNG"
     )
 
-    # def get_recent_ratings(self, limit=20):
-    #     """
-    #     Get the user's recently rated songs.
-
-    #     @limit: How many songs to get
-    #     """
-
-    #     ratings = self.user.songlist.songrating_set.all()
-    #     songs = Song.objects.filter(songrating__in=ratings).values(
-    #         'video_link',
-    #         'anime__cover',
-    #         'pk'
-    #     ).order_by('-songrating__last_modified')[:limit]
-
-    #     return songs
-
     def get_top_ratings(self, limit=20):
         """
         Get the user's recently rated songs.
@@ -83,6 +67,7 @@ class Profile(ModelAbstract):
             'song__anime__cover',
             'song__anime__english_name',
             'song__anime__slug_name',
+            'song__anime__pk',
             'song__song_type',
             'song__number',
             'song__name',
@@ -90,7 +75,11 @@ class Profile(ModelAbstract):
             'song__video_link',
             'song__detail_link',
             'song__pk'
-        ).order_by('-rating', '-last_modified')
+        ).order_by(
+            '-rating',
+            'song__anime__english_name',
+            '-song__song_type', 'song__number'
+        )
 
         return ratings
 

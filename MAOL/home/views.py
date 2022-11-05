@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound
 
 from home.models import Anime, Song
+
 from .serializers import song_serializer
 
 from random import randint
@@ -44,7 +45,8 @@ def anime(request, id):
             return HttpResponseNotFound('<h1>Anime not found</h1>')
         else:
             songs = Song.objects.filter(anime=id).values(
-                'detail_link', 'song_type', 'number', 'name', 'video_link', 'pk'
+                'detail_link', 'song_type', 'number',
+                'name', 'video_link', 'pk'
             )
             songs = song_serializer(songs)
             anime = song_serializer(anime)
@@ -68,6 +70,7 @@ def song(request, slug):
                 'name',
                 'video_link',
                 'anime__english_name',
+                'anime__pk',
                 'song_type',
                 'number',
                 'pk'
@@ -84,20 +87,24 @@ def song(request, slug):
                 {'song': song}
             )
 
+
 def random_song(request):
     first = Song.objects.first().pk
     last = Song.objects.last().pk
-    
 
     rand = randint(first, last)
     song = Song.objects.get(pk=rand)
 
-    return redirect(f'/song/{song.anime.slug_name}-{song.song_type}-{song.number}')
+    return redirect(
+        f'/song/{song.anime.slug_name}-{song.song_type}-{song.number}'
+    )
+
 
 def top_songs(request):
     qs = Song.objects.get_top_songs().values(
         'anime__cover',
         'anime__english_name',
+        'anime__pk',
         'detail_link',
         'song_type',
         'number',
@@ -109,3 +116,33 @@ def top_songs(request):
     qs_json = song_serializer(qs)
     return render(request, 'home/top_songs.html', {'songs': qs_json})
 
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        anime_res = song_serializer(Anime.objects.search(query).values(
+            'english_name',
+            'cover',
+            'pk'
+        ))
+        song_res = song_serializer(Song.objects.search(query).values(
+            'anime__cover',
+            'anime__english_name',
+            'anime__pk',
+            'detail_link',
+            'song_type',
+            'number',
+            'name',
+            'video_link',
+            'pk'
+        ))
+
+        context = {
+            'anime': anime_res,
+            'songs': song_res,
+            'query': query
+        }
+
+        return render(request, 'home/search.html', context)
+    else:
+        return HttpResponse('<h1> No Search Entered </h1>')

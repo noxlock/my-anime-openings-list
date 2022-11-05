@@ -7,8 +7,14 @@
 </head>
 
 <body>
-    <v-app id='profile'>
-            <Profile :profile="{{profile}}" username="{{id}}" user="{{user}}" :top="{{topRated}}" ></Profile>
+    <v-app id='search'>
+            <Search
+            user="{{user}}"
+            :anime="{{anime}}"
+            :songs="{{songs}}"
+            query="{{query}}"
+            >
+            </Search>
     </v-app>
     
 </body>
@@ -16,4 +22,4 @@
 
 
 {% render_bundle 'chunk-vendors' %}
-{% render_bundle 'profile' %}
+{% render_bundle 'search' %}

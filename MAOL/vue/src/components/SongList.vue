@@ -111,21 +111,37 @@
 
             <!-- Show img for cover instead of url -->
             <template v-slot:item.song__anime__cover="{ item }">
-                <v-img
-                contain
-                :aspect-ratio="16/9"
-                :height="100"
-                :src="item.song__anime__cover">
-                </v-img>
+                <a :href="'../../anime/' + item.song__anime__pk">
+                    <v-img
+                    contain
+                    :aspect-ratio="16/9"
+                    :height="100"
+                    :src="item.song__anime__cover">
+                    </v-img>
+                </a>
             </template>
 
             <template v-slot:item.anime__cover="{ item }">
-                <v-img
-                contain
-                :aspect-ratio="16/9"
-                :height="100"
-                :src="item.anime__cover">
-                </v-img>
+                <a :href="'../../anime/' + item.anime__pk">
+                    <v-img
+                    contain
+                    :aspect-ratio="16/9"
+                    :height="100"
+                    :src="item.anime__cover">
+                    </v-img>
+                </a>
+            </template>
+
+            <template v-slot:item.song__anime__english_name="{ item }">
+                <a :href="'../../anime/' + item.song__anime__pk">
+                    {{ item.song__anime__english_name }}
+                </a>
+            </template>
+
+            <template v-slot:item.anime__english_name="{ item }">
+                <a :href="'../../anime/' + item.anime__pk">
+                    {{ item.anime__english_name }}
+                </a>
             </template>
 
             <template v-slot:item.name="{ item }">

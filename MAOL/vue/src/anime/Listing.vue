@@ -35,11 +35,6 @@
         :search="search"
         class="elevation-1"
         >
-            <template v-slot:top>
-                <v-toolbar flat>
-                    <v-spacer></v-spacer>
-                </v-toolbar>
-            </template>
 
             <!-- Show img for cover instead of url -->
             <template v-slot:item.cover="{ item }">

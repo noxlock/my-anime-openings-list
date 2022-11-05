@@ -3,10 +3,11 @@
         <ToolBar :user="username"></ToolBar>
         <HomeAppBar></HomeAppBar>
         <div>
-            <v-card>
+            <v-card flat>
                 <h1>{{song[0].anime__english_name}} {{song[0].song_type}}{{song[0].number}}</h1>
                 <h2>{{song[0].name}}</h2>
             </v-card>
+            <br/>
         </div>
 
             <v-row>
@@ -18,20 +19,19 @@
                 </v-col>
                 <v-col cols="3">
                     <div style="float:left; color:blue;">
-                        <a :href="song.detail_link">
+                        <a :href="'../anime/' + song[0].anime__pk">
                             <h3>
                                 {{
-                                    song[0].anime__english_name + ' '
-                                    + song[0].song_type + song[0].number
+                                    song[0].anime__english_name
                                 }}
                                 <br/>
                             </h3>
-                            <h4>
-                                {{
-                                    song[0].name
-                                }}
-                            </h4>
                         </a>
+                        <h4>
+                            {{
+                                song[0].song_type + song[0].number + ' ' + song[0].name
+                            }}
+                        </h4>
                         <br/>
                         <v-select
                         :items="[1,2,3,4,5,6,7,8,9,10]"
@@ -132,5 +132,9 @@ video {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+h4 {
+    color: #1976D2
 }
 </style>

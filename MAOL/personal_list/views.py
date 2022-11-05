@@ -28,11 +28,12 @@ def profile(request, id=None):
                 'number',
                 'anime__english_name',
                 'anime__cover',
+                'anime__pk',
                 'pk'
             ))
             # recentRated = song_serializer(profile[0].get_recent_ratings(20))
 
-            context = {'profile': json_profile, 'topRated': topRated}
+            context = {'profile': json_profile, 'topRated': topRated, 'id': id}
 
             return render(request, 'profile.html', context)
 

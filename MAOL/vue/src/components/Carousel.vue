@@ -71,6 +71,14 @@
                         :filled=true
                         ></v-select>
                         <v-btn
+                        v-if="user == username"
+                        color="primary"
+                        disabled
+                        >
+                        Song already in list
+                        </v-btn>
+                        <v-btn
+                        v-else
                         color="primary"
                         :disabled="rating === ''"
                         @click="addToList(selectedSong.pk)"
@@ -109,6 +117,12 @@ export default {
   props: {
     songs: {
       type: Array,
+    },
+    user: {
+      type: String,
+    },
+    username: {
+      type: String,
     },
   },
   data: () => ({

@@ -143,7 +143,7 @@ def get_songs(name):
             continue
 
         if theme['sequence']:
-            sequence = theme['sequence'] 
+            sequence = theme['sequence']
         else:
             sequence = 1
 

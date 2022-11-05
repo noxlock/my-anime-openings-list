@@ -29,6 +29,10 @@ const pages = {
     entry: './src/pages/top_songs.js',
     chunks: ['chunk-vendors'],
   },
+  search: {
+    entry: './src/pages/search.js',
+    chunks: ['chunk-vendors'],
+  },
 };
 
 module.exports = {

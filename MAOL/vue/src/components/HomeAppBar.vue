@@ -20,17 +20,22 @@
                 Random
             </v-tab>
 
-            <v-text-field
+            <form id="search" action="/search">
+                <v-text-field
                 @focus="searchClosed = false"
                 @blur="searchClosed = true"
                 v-model='query'
+                id="query"
+                name="q"
+                type="search"
                 placeholder="Search"
                 filled
                 dense
                 prepend-inner-icon='mdi-magnify'
                 class="search mt-1"
                 :class="{ 'closed': searchClosed && !query }"
-            ></v-text-field>
+                ></v-text-field>
+            </form>
         </v-tabs>
 
     </v-card>

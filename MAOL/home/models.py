@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 
 
@@ -28,6 +29,18 @@ class ModelAbstract(DateData):
         abstract = True
 
 
+class AnimeManager(models.Manager):
+    def search(self, query):
+        qs = self.get_queryset()
+        lookup = (
+            Q(japanese_name__icontains=query) |
+            Q(english_name__icontains=query)
+        )
+
+        qs = qs.filter(lookup).distinct()
+        return qs
+
+
 class Anime(ModelAbstract):
     """
     An anime series
@@ -39,6 +52,8 @@ class Anime(ModelAbstract):
     anilist_link = models.TextField()
     # cover photo
     cover = models.TextField(default='')
+
+    objects = AnimeManager()
 
     def __str__(self):
         return self.english_name
@@ -63,6 +78,22 @@ class SongManager(models.Manager):
                 '-avg_rating', 'anime__english_name'
             )
         return rated
+
+    def search(self, query):
+        qs = self.get_queryset()
+        lookup = (
+            Q(name__icontains=query) |
+            Q(artist__icontains=query) |
+            Q(anime__japanese_name__icontains=query) |
+            Q(anime__english_name__icontains=query)
+        )
+
+        qs = qs.filter(lookup).distinct().order_by(
+            'anime__english_name',
+            '-song_type',
+            'number'
+        )
+        return qs
 
 
 class Song(ModelAbstract):
