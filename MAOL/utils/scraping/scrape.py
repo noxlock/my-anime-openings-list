@@ -148,14 +148,16 @@ def get_songs(name):
             sequence = 1
 
         # print(f"Song: {theme['song']['title']} {theme['type']}{sequence}\n")
-
-        song = Song.objects.get(
-            anime__slug_name=anime[0].slug_name,
-            song_type=theme['type'],
-            number=sequence,
-        )
-        song.name = theme['song']['title']
-        song.save()
+        try:
+            song = Song.objects.get(
+                anime__slug_name=anime[0].slug_name,
+                song_type=theme['type'],
+                number=sequence,
+            )
+            song.name = theme['song']['title']
+            song.save()
+        except Song.DoesNotExist:
+            raise ValueError(f"{theme['song']['title']} does not exist")
 
 
 def create_all_songs():
