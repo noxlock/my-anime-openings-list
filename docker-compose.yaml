@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  db:
+    image: "postgres:15-alpine"
+    env_file:
+      - ./MAOL/.env
+    ports:
+      - 5432:5432
+    volumes: 
+      - db:/var/lib/postgresql/data
+  web:
+    build: .
+    env_file:
+      - ./MAOL/.env
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+volumes:
+  db:
+    driver: local
