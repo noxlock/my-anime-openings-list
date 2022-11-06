@@ -9,7 +9,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                :src="require(`@/assets/ai-art-1.png`)"
+                src="/static/ai-art-1"
                 class="artone"
                 :height="height"
                 >
@@ -27,7 +27,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                :src="require(`@/assets/ai-art-2.png`)"
+                src="/static/ai-art-2"
                 class="arttwo"
                 :height="height"
                 >
@@ -45,7 +45,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                :src="require(`@/assets/ai-art-3.png`)"
+                src="/static/ai-art-3"
                 class="artthree"
                 :height="height"
                 >
