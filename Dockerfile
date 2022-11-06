@@ -14,4 +14,4 @@ WORKDIR ./my-anime-openings-list/
 RUN pip install -r requirements.txt
 EXPOSE 8000
 WORKDIR ./MAOL/
-CMD gunicorn -b 0.0.0.0:8000 MAOL.wsgi
+ENTRYPOINT gunicorn -b 0.0.0.0:8000 MAOL.wsgi
