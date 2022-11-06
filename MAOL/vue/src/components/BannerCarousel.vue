@@ -52,7 +52,7 @@
                     <div class="bannertext-background">
                         <h1 class="banner-header text-h4 mb-4 text-center">
                             {{heading}}
-                        </h1>   
+                        </h1>
                         <h4 class="subheading text-center">
                             {{subheader}}
                         </h4>
