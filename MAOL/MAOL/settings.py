@@ -104,10 +104,10 @@ LOGOUT_REDIRECT_URL = '/auth/login'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASS'],
-        'HOST': os.environ['DB_HOST'],
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ['POSTGRESS_HOST'],
         'PORT': os.environ['DB_PORT'],
     }
 }
@@ -168,5 +168,5 @@ SHELL_PLUS_POST_IMPORTS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # If running a dev environment
-if os.environ.get('DJANGO_DEVELOPMENT'):
-    from MAOL.settings_dev import *
+# if os.environ.get('DJANGO_DEVELOPMENT'):
+#     from MAOL.settings_dev import *
