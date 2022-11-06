@@ -167,8 +167,6 @@ SHELL_PLUS_POST_IMPORTS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DEBUG = True
-
 # If running a dev environment
 # if os.environ.get('DJANGO_DEVELOPMENT'):
 #     from MAOL.settings_dev import *
