@@ -9,7 +9,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                src="/static/ai-art-1"
+                src="/static/vue/img/ai-art-1.png"
                 class="artone"
                 :height="height"
                 >
@@ -27,7 +27,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                src="/static/ai-art-2"
+                src="/static/vue/img/ai-art-2.png"
                 class="arttwo"
                 :height="height"
                 >
@@ -45,14 +45,14 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                src="/static/ai-art-3"
+                src="/static/vue/img/ai-art-3.png"
                 class="artthree"
                 :height="height"
                 >
                     <div class="bannertext-background">
                         <h1 class="banner-header text-h4 mb-4 text-center">
                             {{heading}}
-                        </h1>
+                        </h1>   
                         <h4 class="subheading text-center">
                             {{subheader}}
                         </h4>
