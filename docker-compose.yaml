@@ -10,10 +10,11 @@ services:
       - db:/var/lib/postgresql/data
   web:
     build: .
+    image: my-anime-openings-list_web
     env_file:
       - ./MAOL/.env
     ports:
-      - 80:80
+      - 80:8000
     depends_on:
       - db
 
