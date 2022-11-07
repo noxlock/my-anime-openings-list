@@ -27,7 +27,7 @@ DEBUG = True
 SECRET_KEY = os.environ['SECRET_KEY']
 
 
-ALLOWED_HOSTS = ['my-anime-openings-list.herokuapp.com']
+ALLOWED_HOSTS = ['maol.live']
 
 
 # Application definition
