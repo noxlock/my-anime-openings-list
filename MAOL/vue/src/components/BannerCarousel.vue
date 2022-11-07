@@ -9,7 +9,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                src="/static/vue/img/ai-art-1.png"
+                src="/static/ai-art-1.png"
                 class="artone"
                 :height="height"
                 >
@@ -27,7 +27,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                src="/static/vue/img/ai-art-2.png"
+                src="/static/ai-art-2.png"
                 class="arttwo"
                 :height="height"
                 >
@@ -45,7 +45,7 @@
             <v-carousel-item>
                 <v-parallax
                 dark
-                src="/static/vue/img/ai-art-3.png"
+                src="/static/ai-art-3.png"
                 class="artthree"
                 :height="height"
                 >
