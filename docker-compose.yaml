@@ -14,7 +14,7 @@ services:
     env_file:
       - ./MAOL/.env
     ports:
-      - 80:8000
+      - 443:443
     depends_on:
       - db
 

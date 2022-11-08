@@ -11,7 +11,9 @@ RUN npm run build
 FROM python:3.9-buster
 COPY --from=0 my-anime-openings-list/ ./my-anime-openings-list/
 WORKDIR ./my-anime-openings-list/
+COPY ./server.csr ./server.csr
+COPY ./server.key ./server.key
 RUN pip install -r requirements.txt
-EXPOSE 8000
+EXPOSE 443
 WORKDIR ./MAOL/
-ENTRYPOINT gunicorn -b 0.0.0.0:8000 MAOL.wsgi
+ENTRYPOINT gunicorn --certfile=server.crt --keyfile=server.key -b 0.0.0.0:443 MAOL.wsgi
