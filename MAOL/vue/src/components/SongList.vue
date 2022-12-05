@@ -170,10 +170,20 @@
                 small
                 class="mr-2"
                 @click="openAddDialog(item)"
-                v-if="user != username"
+                v-if="user != username && user != 'AnonymousUser'"
                 >
                     mdi-plus-thick
                 </v-icon>
+
+                <a v-else href="../auth/login">
+                    <v-icon
+                    small
+                    class="mr-2"
+                    @click="openAddDialog(item)"
+                    >
+                        mdi-plus-thick
+                    </v-icon>
+                </a>
 
                 <v-icon
                 small
@@ -375,5 +385,9 @@ export default {
 
 .mid {
     max-width: 50px;
+}
+
+a {
+    text-decoration: none;
 }
 </style>
