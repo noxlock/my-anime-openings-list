@@ -10,7 +10,7 @@ def register(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/auth/login')
+            return redirect('/auth/login/')
 
     context = {'form': form}
     return render(request, 'register.html', context)

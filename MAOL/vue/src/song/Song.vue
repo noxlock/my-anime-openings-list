@@ -85,6 +85,9 @@ export default {
     song: {
       type: Array,
     },
+    list: {
+      type: Number,
+    },
     username: {
       type: String,
     },
@@ -97,9 +100,10 @@ export default {
   }),
   methods: {
     addToList(song) {
-      this.$http.post('/api/addtolist/', {
-        method: 'POST',
-        data: { song, rating: this.rating },
+      this.$http.post('/api/ratings/', {
+        song,
+        rating: this.rating,
+        parent_list: this.list,
       }).then((res) => {
         if (res.status === 201) {
           this.snack = true;

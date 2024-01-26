@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'home',
     'personal_list',
     'utils',
-    'authentication'
+    'authentication',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -94,8 +95,8 @@ WEBPACK_LOADER = {
 }
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/auth/login'
-LOGOUT_REDIRECT_URL = '/auth/login'
+LOGIN_URL = '/auth/login/'
+LOGOUT_REDIRECT_URL = '/auth/login/'
 
 
 # Database

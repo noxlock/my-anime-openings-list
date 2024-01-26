@@ -72,6 +72,7 @@ class Profile(ModelAbstract):
             'song__number',
             'song__name',
             'rating',
+            'id',
             'song__video_link',
             'song__detail_link',
             'song__pk'

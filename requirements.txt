@@ -52,3 +52,5 @@ virtualenv==20.4.7
 virtualenv-clone==0.5.4
 wcwidth==0.2.5
 whitenoise==5.2.0
+coverage==6.5.0
+djangorestframework==3.14.0

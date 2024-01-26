@@ -6,7 +6,7 @@
         <!-- Banner and profile picture -->
         <ProfileBanner :profile="profile" :username="username"></ProfileBanner>
         <v-card outlined class="text-h3"> {{username}}'s Top Songs </v-card>
-        <Carousel :songs="top" :user="user" :username="username"></Carousel>
+        <Carousel :songs="top" :user="user" :list="list" :username="username"></Carousel>
     </v-main>
 </template>
 
@@ -33,6 +33,9 @@ export default {
     },
     user: {
       type: String,
+    },
+    list: {
+      type: Number,
     },
     top: {
       type: Array,

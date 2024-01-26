@@ -71,16 +71,8 @@
                         :filled=true
                         ></v-select>
                         <v-btn
-                        v-if="user == username"
                         color="primary"
-                        disabled
-                        >
-                        Song already in list
-                        </v-btn>
-                        <v-btn
-                        v-else
-                        color="primary"
-                        :disabled="rating === ''"
+                        :disabled="rating === '' || list === undefined"
                         @click="addToList(selectedSong.pk)"
                         >
                             Add To List
@@ -121,6 +113,9 @@ export default {
     user: {
       type: String,
     },
+    list: {
+      type: Number,
+    },
     username: {
       type: String,
     },
@@ -134,9 +129,10 @@ export default {
   }),
   methods: {
     addToList(song) {
-      this.$http.post('/api/addtolist/', {
-        method: 'POST',
-        data: { song, rating: this.rating },
+      this.$http.post('/api/ratings/', {
+        song,
+        rating: this.rating,
+        parent_list: this.list,
       }).then((res) => {
         if (res.status === 201) {
           this.snack = true;

@@ -33,7 +33,7 @@
                 </v-col>
 
                 <v-col cols="9">
-                    <SongList :ratings="songs" :user="user"
+                    <SongList :ratings="songs" :user="user" :list="list"
                         :headers="[
                         {'text': 'Type', 'value': 'song_type'},
                         {'text': 'Number', 'value': 'number'},
@@ -69,6 +69,9 @@ export default {
     },
     user: {
       type: String,
+    },
+    list: {
+      type: Number,
     },
     username: {
       type: String,

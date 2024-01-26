@@ -9,7 +9,7 @@
             </BannerCarousel>
 
             <v-card outlined class="text-h4">Top Songs</v-card>
-            <Carousel :songs="songs"></Carousel>
+            <Carousel :list="list" :songs="songs"></Carousel>
         </v-main>
 </template>
 
@@ -30,6 +30,9 @@ export default {
   props: {
     songs: {
       type: Array,
+    },
+    list: {
+      type: Number,
     },
     username: {
       type: String,

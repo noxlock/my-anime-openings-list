@@ -60,7 +60,7 @@ class Anime(ModelAbstract):
 
 
 class SongManager(models.Manager):
-    def get_top_songs(self):
+    def get_top_songs(self, limit=10):
         """
         Get the top rated songs in the database.
 
@@ -76,7 +76,7 @@ class SongManager(models.Manager):
                 avg_rating=models.Avg('songrating__rating')
             ).exclude(avg_rating=0).order_by(
                 '-avg_rating', 'anime__english_name'
-            )
+            )[:limit]
         return rated
 
     def search(self, query):

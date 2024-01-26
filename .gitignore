@@ -2,3 +2,6 @@
 /MAOL/node_modules
 __pycache__/
 .vscode/
+server.crt
+server.key
+.prodenv

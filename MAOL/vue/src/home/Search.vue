@@ -48,7 +48,7 @@
             <h2>Songs</h2>
         </v-card>
         <SongList
-            :username=null :user="user" :ratings="songs" :headers="[
+            :username=null :user="user" :list="list" :ratings="songs" :headers="[
             {'value': 'anime__cover'},
             {'text': 'Anime', 'value': 'anime__english_name'},
             {'text': 'Type', 'value': 'song_type'},
@@ -81,6 +81,9 @@ export default {
     user: {
       type: String,
     },
+    list: {
+      type: Number,
+    },
     query: {
       type: String,
     },
@@ -96,9 +99,10 @@ export default {
   }),
   methods: {
     addToList(song) {
-      this.$http.post('/api/addtolist/', {
-        method: 'POST',
-        data: { song, rating: this.rating },
+      this.$http.post('/api/ratings/', {
+        song,
+        rating: this.rating,
+        parent_list: this.list,
       }).then((res) => {
         if (res.status === 201) {
           this.snack = true;

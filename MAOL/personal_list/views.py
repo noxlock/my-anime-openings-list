@@ -2,9 +2,13 @@ from django.core.serializers import serialize
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.http import HttpResponseNotFound
 
 from .models import Profile
+
 from home.serializers import song_serializer
+
+from utils.views import get_list
 
 
 def profile(request, id=None):
@@ -31,19 +35,23 @@ def profile(request, id=None):
                 'anime__pk',
                 'pk'
             ))
-            # recentRated = song_serializer(profile[0].get_recent_ratings(20))
 
-            context = {'profile': json_profile, 'topRated': topRated, 'id': id}
+            context = {
+                'profile': json_profile,
+                'topRated': topRated,
+                'list': get_list(request),
+                'id': id
+            }
 
             return render(request, 'profile.html', context)
 
         # If no user was found, display an error
         else:
-            return render(request, 'profile_error.html', {'id': id})
+            return HttpResponseNotFound(f"<h1>User {id} not found</h1>")
 
     # if an id is not given, try displaying the logged in user's profile
     elif not id and request.user.is_authenticated:
-        return redirect(f'/profile/{request.user.username}')
+        return redirect(f'/profile/{request.user.username}/')
 
     # if no user is logged in, redirect to login page
     else:
@@ -63,8 +71,13 @@ def list(request, id=None):
         # profile (for banner & picture)
         # ratings (for their list)
         # id (for certain display conditions)
-        context = {'profile': json_profile, 'ratings': ratings, 'id': id}
+        context = {
+            'profile': json_profile,
+            'ratings': ratings,
+            'list': get_list(request),
+            'id': id
+        }
         return render(request, 'list.html', context)
 
     else:
-        return render(request, 'profile_error.html', {'id': id})
+        return HttpResponseNotFound(f"<h1>User not found</h1>")

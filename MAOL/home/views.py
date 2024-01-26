@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 
 from home.models import Anime, Song
+from utils.views import get_list
 
 from .serializers import song_serializer
 
@@ -22,7 +23,14 @@ def index(request):
 
     qs_json = song_serializer(qs)
 
-    return render(request, 'home/index.html', {'songs': qs_json})
+    return render(
+        request,
+        'home/index.html',
+        {
+            'songs': qs_json,
+            'list': get_list(request)
+        }
+        )
 
 
 def anime_listing(request):
@@ -34,14 +42,13 @@ def anime_listing(request):
 
 def anime(request, id):
     if id:
-        try:
-            anime = Anime.objects.filter(pk=id).values(
-                'english_name',
-                'cover',
-                'pk'
-            )
+        anime = Anime.objects.filter(pk=id).values(
+            'english_name',
+            'cover',
+            'pk'
+        )
 
-        except Anime.DoesNotExist:
+        if not anime.exists():
             return HttpResponseNotFound('<h1>Anime not found</h1>')
         else:
             songs = Song.objects.filter(anime=id).values(
@@ -51,17 +58,21 @@ def anime(request, id):
             songs = song_serializer(songs)
             anime = song_serializer(anime)
 
+            # TODO: since an anime can exist with no songs,
+            # make sure front-end handles blank results
             return render(
                 request,
                 'home/anime.html',
-                {'anime': anime, 'songs': songs}
+                {'anime': anime, 'songs': songs, 'list': get_list(request)}
             )
 
 
 def song(request, slug):
     if slug:
-        try:
-            slug = slug.split('-')
+        slug = slug.split('-')
+        if len(slug) != 3:
+            return HttpResponseNotFound('<h1>Song not found</h1>')
+        else:
             song = Song.objects.filter(
                 anime__slug_name=slug[0],
                 song_type=slug[1],
@@ -75,8 +86,7 @@ def song(request, slug):
                 'number',
                 'pk'
             )
-
-        except Song.DoesNotExist:
+        if not song.exists():
             return HttpResponseNotFound('<h1>Song not found</h1>')
         else:
             song = song_serializer(song)
@@ -84,16 +94,15 @@ def song(request, slug):
             return render(
                 request,
                 'home/song.html',
-                {'song': song}
+                {'song': song, 'list': get_list(request)}
             )
 
 
 def random_song(request):
-    first = Song.objects.first().pk
-    last = Song.objects.last().pk
-
-    rand = randint(first, last)
-    song = Song.objects.get(pk=rand)
+    # Since we may have gaps in between pks due to deleted records,
+    # Make sure to go off the count of objects, rather than
+    # first and last pk.
+    song = Song.objects.all()[Song.objects.count() - 1]
 
     return redirect(
         f'/song/{song.anime.slug_name}-{song.song_type}-{song.number}'
@@ -114,7 +123,7 @@ def top_songs(request):
     )
 
     qs_json = song_serializer(qs)
-    return render(request, 'home/top_songs.html', {'songs': qs_json})
+    return render(request, 'home/top_songs.html', {'songs': qs_json, 'list': get_list(request)})
 
 
 def search(request):
@@ -140,6 +149,7 @@ def search(request):
         context = {
             'anime': anime_res,
             'songs': song_res,
+            'list': get_list(request),
             'query': query
         }
 

@@ -1,9 +1,9 @@
 <template>
     <v-main>
-        <ToolBar :username="user"></ToolBar>
+        <ToolBar :user="user"></ToolBar>
         <ProfileBanner :profile="profile" :username="username"></ProfileBanner>
         <SongList
-            :username="username" :user="user" :ratings="ratings" :headers="[
+            :username="username" :user="user" :list="list" :ratings="ratings" :headers="[
             {'value': 'song__anime__cover'},
             {'text': 'Anime', 'value': 'song__anime__english_name'},
             {'text': 'Type', 'value': 'song__song_type'},
@@ -37,6 +37,9 @@ export default {
     },
     profile: {
       type: Array,
+    },
+    list: {
+      type: Number,
     },
     ratings: {
       type: Array,

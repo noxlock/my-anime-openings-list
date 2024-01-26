@@ -230,6 +230,9 @@ export default {
       type: String,
       default: 'system',
     },
+    list: {
+      type: Number,
+    },
     ratings: {
       type: Array,
     },
@@ -267,9 +270,10 @@ export default {
       } else {
         song = song.song__pk;
       }
-      this.$http.post('/api/addtolist/', {
-        method: 'POST',
-        data: { song, rating: this.rating },
+      this.$http.post('/api/ratings/', {
+        song,
+        rating: this.rating,
+        parent_list: this.list,
       }).then((res) => {
         if (res.status === 201) {
           this.snack = true;
@@ -287,10 +291,9 @@ export default {
       });
     },
 
-    editRating(song) {
-      this.$http.post('/api/editrating/', {
-        method: 'POST',
-        data: { song, new_rating: this.rating },
+    editRating(id) {
+      this.$http.patch(`/api/ratings/${id}/`, {
+        rating: this.rating,
       }).then(() => {
         this.snack = true;
         this.snackColour = 'success';
@@ -302,16 +305,8 @@ export default {
       });
     },
 
-    removeFromList(song) {
-      if (song.pk) {
-        song = song.pk;
-      } else {
-        song = song.song__pk;
-      }
-      this.$http.post('/api/deletefromlist/', {
-        method: 'POST',
-        data: { song },
-      }).then(() => {
+    removeFromList(id) {
+      this.$http.delete(`/api/ratings/${id}/`).then(() => {
         this.ratings.splice(this.index, 1);
         this.snack = true;
         this.snackColour = 'success';
@@ -340,12 +335,12 @@ export default {
     },
 
     deleteItemConfirm() {
-      this.removeFromList(this.selected);
+      this.removeFromList(this.selected.id);
       this.closeDialog('deleteDialog');
     },
 
     saveRating(item) {
-      this.editRating(item.song__pk);
+      this.editRating(item.id);
       item.rating = this.rating;
       this.closeDialog('ratingDialog');
     },

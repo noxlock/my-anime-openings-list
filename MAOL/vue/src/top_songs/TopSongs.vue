@@ -24,7 +24,7 @@
             :class="{ 'closed': searchClosed && !search }"
         ></v-text-field>
         </v-card-title>
-        <SongList :ratings="songs" :user="user"
+        <SongList :ratings="songs" :user="user" :list="list"
         :headers="[
         {'value': 'anime__cover'},
         {'text': 'Type', 'value': 'song_type'},
@@ -52,6 +52,9 @@ export default {
   props: {
     songs: {
       type: Array,
+    },
+    list: {
+      type: Number,
     },
     user: {
       type: String,
